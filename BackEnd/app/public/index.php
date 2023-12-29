@@ -13,12 +13,12 @@ $router = new \Bramus\Router\Router();
 
 $router->setNamespace('Controllers');
 
-// routes for the products endpoint
-$router->get('/products', 'ProductController@getAll');
-$router->get('/products/(\d+)', 'ProductController@getOne');
-$router->post('/products', 'ProductController@create');
-$router->put('/products/(\d+)', 'ProductController@update');
-$router->delete('/products/(\d+)', 'ProductController@delete');
+// routes for the destinations endpoint
+$router->get('/destinations', 'DestinationsController@getAll');
+$router->get('/destinations/(\d+)', 'DestinationsController@getOne');
+$router->post('/destinations', 'DestinationsController@create');
+$router->put('/destinations/(\d+)', 'DestinationsController@update');
+$router->delete('/destinations/(\d+)', 'DestinationsController@delete');
 
 // routes for the categories endpoint
 $router->get('/categories', 'CategoryController@getAll');
