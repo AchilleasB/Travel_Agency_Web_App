@@ -1,15 +1,16 @@
 {
     "name": "root/app",
-    "autoload": {
+    "autoload":{
         "psr-4": {
             "Routers\\": "routers",
             "Controllers\\": "controllers",
-            "Services\\": "services",
             "Models\\": "models",
-            "Repositories\\": "repositories"
+            "Services" : "services",
+            "Repositories" : "repositories"
         }
     },
     "require": {
-
+        "bramus/router": "^1.6",
+        "firebase/php-jwt": "^6.10"
     }
 }

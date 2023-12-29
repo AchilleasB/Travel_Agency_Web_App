@@ -4,19 +4,29 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitbb3dfcf1798cbc25a1fa8ff85d3b0caa
+class ComposerStaticInit648f7c83039e8f32cf2e64edd228b1af
 {
     public static $prefixLengthsPsr4 = array (
-        'R' => 
+        'F' => 
         array (
-            'Root\\App\\' => 9,
+            'Firebase\\JWT\\' => 13,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'Root\\App\\' => 
+        'Firebase\\JWT\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/src',
+            0 => __DIR__ . '/..' . '/firebase/php-jwt/src',
+        ),
+    );
+
+    public static $prefixesPsr0 = array (
+        'B' => 
+        array (
+            'Bramus' => 
+            array (
+                0 => __DIR__ . '/..' . '/bramus/router/src',
+            ),
         ),
     );
 
@@ -27,9 +37,10 @@ class ComposerStaticInitbb3dfcf1798cbc25a1fa8ff85d3b0caa
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitbb3dfcf1798cbc25a1fa8ff85d3b0caa::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitbb3dfcf1798cbc25a1fa8ff85d3b0caa::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitbb3dfcf1798cbc25a1fa8ff85d3b0caa::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit648f7c83039e8f32cf2e64edd228b1af::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit648f7c83039e8f32cf2e64edd228b1af::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit648f7c83039e8f32cf2e64edd228b1af::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit648f7c83039e8f32cf2e64edd228b1af::$classMap;
 
         }, null, ClassLoader::class);
     }
