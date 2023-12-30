@@ -5,8 +5,8 @@
             "Routers\\": "routers",
             "Controllers\\": "controllers",
             "Models\\": "models",
-            "Services" : "services",
-            "Repositories" : "repositories"
+            "Services\\" : "services",
+            "Repositories\\" : "repositories"
         }
     },
     "require": {
