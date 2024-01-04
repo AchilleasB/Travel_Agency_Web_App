@@ -1,11 +1,20 @@
 <?
 namespace Services;
-use Models\Trip;
 use Repositories\TripRepository;
 class TripService {
-    private TripRepository $tripRepository;
+    private $tripRepository;
 
-    public function create(Trip $trip){
+    public function __construct()
+    {
+        $this->tripRepository = new TripRepository();
+    }
+
+    public function getAllTrips($offset = NULL, $limit = NULL)
+    {
+        $trips = $this->tripRepository->getAllTrips($offset, $limit);
+        return $trips;
+    }
+    public function create($trip){
         $trip = $this->tripRepository->create($trip);
         return $trip;
     }
