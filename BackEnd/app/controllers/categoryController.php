@@ -2,8 +2,6 @@
 namespace Controllers;
 
 use Services\CategoryService;
-// require_once __DIR__ . '/../services/categoryservice.php';
-// require_once __DIR__ . '/controller.php';
 
 class CategoryController extends Controller
 {

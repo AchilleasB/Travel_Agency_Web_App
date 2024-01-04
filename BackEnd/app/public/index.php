@@ -27,6 +27,7 @@ $router->get('/accommodations/(\d+)', 'AccommodationController@getOne');
 $router->post('/accommodations', 'AccommodationController@create');
 $router->put('/accommodations/(\d+)', 'AccommodationController@update');
 $router->delete('/accommodations/(\d+)', 'AccommodationController@delete');
+
 // routes for the destinations endpoint
 $router->get('/destinations', 'DestinationController@getAll');
 $router->get('/destinations/(\d+)', 'DestinationController@getOne');

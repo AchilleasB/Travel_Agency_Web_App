@@ -10,7 +10,7 @@ class DestinationRepository extends Repository
     function getAllDestinations($offset = NULL, $limit = NULL)
     {
         try {
-            $query = "SELECT * FROM categories";
+            $query = "SELECT * FROM destinations";
             if (isset($limit) && isset($offset)) {
                 $query .= " LIMIT :limit OFFSET :offset ";
             }

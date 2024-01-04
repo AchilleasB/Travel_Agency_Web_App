@@ -3,7 +3,7 @@ namespace Controllers;
 
 use Services\DestinationService;
 
-class CategoryController extends Controller
+class DestinationController extends Controller
 {
     private $destinationService;
 
@@ -25,7 +25,6 @@ class CategoryController extends Controller
         }
 
         $destinations = $this->destinationService->getAllDestinations($offset, $limit);
-
         if(!$destinations){
             $this->respondWithError(404, "No categories found");
             return;
