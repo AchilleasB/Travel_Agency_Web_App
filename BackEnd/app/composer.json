@@ -1,12 +1,11 @@
 {
-    "name": "root/app",
-    "autoload":{
+    "autoload": {
         "psr-4": {
             "Routers\\": "routers",
             "Controllers\\": "controllers",
+            "Services\\": "services",
             "Models\\": "models",
-            "Services\\" : "services",
-            "Repositories\\" : "repositories"
+            "Repositories\\": "repositories"
         }
     },
     "require": {
