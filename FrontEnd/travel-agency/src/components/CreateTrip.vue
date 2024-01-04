@@ -11,12 +11,12 @@ const trip = ref({
     available: true,
     price: 0,
     category_id: 0,
-    accomodation_id: 0,
+    accommodation_id: 0,
     destination_id: 0,
 });
 
 const categories = ref([]);
-const accomodations = ref([]);
+const accommodations = ref([]);
 const destinations = ref([]);
 
 const getCategories = async () => {
@@ -25,9 +25,9 @@ const getCategories = async () => {
     categories.value = response.data;
 };
 
-const getAccomodations = async () => {
-    const response = await axios.get('accomodations');
-    accomodations.value = response.data;
+const getAccommodations = async () => {
+    const response = await axios.get('accommodations');
+    accommodations.value = response.data;
 };
 
 const getDestinations = async () => {
@@ -42,7 +42,7 @@ const createTrip = async () => {
 
 onMounted(() => {
     getCategories();
-    getAccomodations();
+    getAccommodations();
     getDestinations();
 });
 
@@ -91,10 +91,10 @@ onMounted(() => {
                     </select>
                 </div>
                 <div class="input-group mb-3">
-                    <span class="input-group-text">Accomodation</span>
-                    <select class="form-select" id="accomodation" v-model="trip.accomodation_id">
-                        <option v-for="accomodation in accomodations" :key="accomodation.id" :value="accomodation.id">
-                           Accomodation: {{ accomodation.hotel_name }} {{ accomodation.hotel_stars }}* , Meals: {{ accomodation.meal_type }}
+                    <span class="input-group-text">Accommodation</span>
+                    <select class="form-select" id="accommodation" v-model="trip.accommodation_id">
+                        <option v-for="accommodation in accommodations" :key="accommodation.id" :value="accommodation.id">
+                            {{ accommodation.hotel_name }} {{ accommodation.hotel_stars }}* , {{ accommodation.meal_type }}
                         </option>
                     </select>
                 </div>

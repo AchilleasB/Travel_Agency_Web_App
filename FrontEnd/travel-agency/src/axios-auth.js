@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const instance = axios.create({
     // must be changed before deployment
-    baseURL: 'https://localhost/'
+    baseURL: 'http://localhost/'
 });
 
 export default instance;
