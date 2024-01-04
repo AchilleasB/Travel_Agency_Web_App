@@ -4,19 +4,56 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit648f7c83039e8f32cf2e64edd228b1af
+class ComposerStaticInit34c36c05260b7e8e8b2fbced22e7ef39
 {
     public static $prefixLengthsPsr4 = array (
+        'S' => 
+        array (
+            'Services\\' => 9,
+        ),
+        'R' => 
+        array (
+            'Routers\\' => 8,
+            'Repositories\\' => 13,
+        ),
+        'M' => 
+        array (
+            'Models\\' => 7,
+        ),
         'F' => 
         array (
             'Firebase\\JWT\\' => 13,
         ),
+        'C' => 
+        array (
+            'Controllers\\' => 12,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
+        'Services\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/services',
+        ),
+        'Routers\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/routers',
+        ),
+        'Repositories\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/repositories',
+        ),
+        'Models\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/models',
+        ),
         'Firebase\\JWT\\' => 
         array (
             0 => __DIR__ . '/..' . '/firebase/php-jwt/src',
+        ),
+        'Controllers\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/controllers',
         ),
     );
 
@@ -37,10 +74,10 @@ class ComposerStaticInit648f7c83039e8f32cf2e64edd228b1af
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit648f7c83039e8f32cf2e64edd228b1af::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit648f7c83039e8f32cf2e64edd228b1af::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit648f7c83039e8f32cf2e64edd228b1af::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit648f7c83039e8f32cf2e64edd228b1af::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit34c36c05260b7e8e8b2fbced22e7ef39::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit34c36c05260b7e8e8b2fbced22e7ef39::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit34c36c05260b7e8e8b2fbced22e7ef39::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit34c36c05260b7e8e8b2fbced22e7ef39::$classMap;
 
         }, null, ClassLoader::class);
     }
