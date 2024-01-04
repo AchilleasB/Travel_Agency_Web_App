@@ -1,5 +1,6 @@
 <script setup>
-import Navigation from '../components/Navigation.vue'
+import CreateTrip from '../components/CreateTrip.vue';
+import Navigation from '../components/Navigation.vue';
 </script>
 
 <template>
@@ -10,6 +11,7 @@ import Navigation from '../components/Navigation.vue'
         <div class="hero__text">
           <h1>Mak Travel</h1>
           <p>Your next journey is here</p>
+          <CreateTrip/>
         </div>
       </section>
     </div>
