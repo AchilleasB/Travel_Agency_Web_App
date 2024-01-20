@@ -6,7 +6,7 @@ const trip = ref({
     name: '',
     image_path: '',
     description: '',
-    departure_date: '',
+    departure_date: new Date('yyyy-MM-dd'),
     duration: 0,
     available: true,
     price: 0,
