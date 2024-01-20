@@ -99,7 +99,7 @@ class TripRepository extends Repository
     {
         $trip = new Trip();
         $trip->id = $row['id'];
-        $trip->name = $row['name'];
+        $trip->name = $row['trip_name'];
         $trip->image_path = $row['image_path'];
         $trip->description = $row['description'];
         $trip->departure_date = new DateTime($row['departure_date']);
