@@ -14,11 +14,11 @@ class Trip
     public int $duration;
     public float $price;
     public bool $available;
-    public int $accommodation_id;
+    public string $accommodation_id;
     public Accommodation $accommodation;
     public string $category_id;
     public Category $category;
-    public int $destination_id;
+    public string $destination_id;
     public Destination $destination;
 }
 ?>
