@@ -1,5 +1,4 @@
 <script setup>
-import { defineProps } from 'vue';
 
 const props = defineProps(['name', 'image', 'description',
                             'departure_date', 'duration', 'price', 

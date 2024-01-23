@@ -21,17 +21,19 @@ const destinations = ref([]);
 
 const getCategories = async () => {
     const response = await axios.get('categories');
-    console.log("Data: " , response.data);
+    console.log("Categories: " , response.data);
     categories.value = response.data;
 };
 
 const getAccommodations = async () => {
     const response = await axios.get('accommodations');
+    console.log("Accommodations: " , response.data); 
     accommodations.value = response.data;
 };
 
 const getDestinations = async () => {
     const response = await axios.get('destinations');
+    console.log("Destinations: " , response.data);
     destinations.value = response.data;
 };
 
