@@ -38,7 +38,7 @@
 .navbar {
   width: 100vw;
   height: 8vh;
-  background: #e9c557;
+  background: #ffbf00ac;
   display: flex;
   justify-content: space-between;
   align-items: stretch;

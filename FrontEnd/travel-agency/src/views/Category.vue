@@ -1,5 +1,4 @@
 <script setup>
-import Navigation from '../components/Navigation.vue'
 import CategoryCard from '../components/CategoryCard.vue';
 import { ref, onMounted } from 'vue';
 import axios from '../axios-auth';
@@ -25,7 +24,6 @@ onMounted(() => {
 </script>
 
 <template>
-    <Navigation />
     <div class="container">
         <h3 class="d-flex justify-content-center">Travel solo or with company</h3>
         <div v-if="categories.length > 0">

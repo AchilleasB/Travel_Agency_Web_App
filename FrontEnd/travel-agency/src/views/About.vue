@@ -1,11 +1,12 @@
 <script setup>
-import Navigation from '../components/Navigation.vue'
 </script>
 
 <template>
-  <Navigation/>
   <div class="about">
     <h1>This is an about page</h1>
+    <!-- Our Philosophy -->
+    <!-- Our Trips-->
+    <!-- Contact info -->
   </div>
 </template>
 

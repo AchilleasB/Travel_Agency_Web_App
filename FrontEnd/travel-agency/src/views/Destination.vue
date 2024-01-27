@@ -1,5 +1,4 @@
 <script setup>
-import Navigation from '../components/Navigation.vue'
 import DestinationCard from '../components/DestinationCard.vue';
 import { ref, onMounted } from 'vue';
 import axios from '../axios-auth';
@@ -26,7 +25,6 @@ onMounted(() => {
 </script>
 
 <template>
-    <Navigation />
     <div class="container">
         <h3 class="d-flex justify-content-center">Select a continent to travel to</h3>
         <div class="destination-cards">

@@ -1,10 +1,8 @@
 <script setup>
 import CreateTrip from '../components/CreateTrip.vue';
-import Navigation from '../components/Navigation.vue';
 </script>
 
 <template>
-  <Navigation/>
   <main>
     <div class="container">
       <section class="hero">

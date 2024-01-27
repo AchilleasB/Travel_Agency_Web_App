@@ -1,5 +1,4 @@
 <script setup>
-import Navigation from '../components/Navigation.vue'
 import TripCard from '../components/TripCard.vue';
 import { ref, onMounted, watchEffect } from 'vue';
 import { useRouter } from 'vue-router';
@@ -46,7 +45,6 @@ onMounted(() => {
 </script>
 
 <template>
-    <Navigation />
     <div class="container">
         <h3 class="d-flex justify-content-center">Where would you like to go?</h3>
         <div v-if="filteredTrips.length > 0">
