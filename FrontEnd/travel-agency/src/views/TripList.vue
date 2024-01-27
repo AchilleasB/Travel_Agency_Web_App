@@ -48,7 +48,8 @@ onMounted(() => {
     <div class="container">
         <h3 class="d-flex justify-content-center">Where would you like to go?</h3>
         <div v-if="filteredTrips.length > 0">
-            <TripCard v-for="trip in filteredTrips" :key="trip.id" 
+            <TripCard v-for="trip in filteredTrips" :key="trip.id"
+                                            :tripId="trip.id" 
                                             :name="trip.name" 
                                             :image="trip.image_path" 
                                             :description="trip.description"

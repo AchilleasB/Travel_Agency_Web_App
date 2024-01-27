@@ -1,5 +1,5 @@
 <script setup>
-import CreateTrip from '../components/CreateTrip.vue';
+import CreateTrip from '../components/trip/CreateTrip.vue';
 </script>
 
 <template>
