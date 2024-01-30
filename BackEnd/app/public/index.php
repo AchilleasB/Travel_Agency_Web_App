@@ -15,7 +15,6 @@ $router->setNamespace('Controllers');
 
 // routes for the trips endpoint
 $router->get('/trips', 'TripController@getAll');
-$router->get('/trips', 'TripController@getAll');
 $router->get('/trips/(\d+)', 'TripController@getOne');
 $router->post('/trips', 'TripController@create');
 $router->put('/trips/(\d+)', 'TripController@update');
@@ -44,6 +43,7 @@ $router->delete('/categories/(\d+)', 'CategoryController@delete');
 
 // routes for the users endpoint
 $router->post('/users/login', 'UserController@login');
+$router->post('/users/signup', 'UserController@signup');
 
 // Run it!
 $router->run();
