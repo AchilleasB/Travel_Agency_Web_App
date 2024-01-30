@@ -20,6 +20,8 @@ const formattedDepartureDate = computed(() => {
     return format(parsedDate, 'dd MMM yyyy');
 });
 
+// Maybe I should pass the tripId as a function parameter already
+// Will keep in mind for when reservation is implemented
 const reserveTrip = () => {
     // TODO: implement the JWT authentication before working on this
     const userId = localStorage.getItem('userId');

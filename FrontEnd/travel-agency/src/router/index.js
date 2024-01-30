@@ -12,7 +12,7 @@ const routes = [
   { path: '/', name: 'home', component: Home },
   { path: '/about', name: 'about', component: About },
   { path: '/account', name: 'account', component: Account},
-  { path: '/reservation', name: 'reservation', component: Resrevation},
+  { path: '/reservation/:tripId/:userId', name: 'reservation', component: Resrevation},
   { path: '/destination', name: 'destination', component: Destination },
   { path: '/destination/:id', name: 'destination-trips', component: TripList, props: route=>({id: parseInt(route.params.id)})},
   { path: '/category', name: 'category', component: Category},

@@ -26,7 +26,7 @@ onMounted(() => {
 
 <template>
     <div class="container">
-        <h3 class="d-flex justify-content-center">Select a continent to travel to</h3>
+        <h3 class="d-flex justify-content-center">Travel to every corner of the planet</h3>
         <div class="destination-cards">
             <DestinationCard 
                 v-for="destination in destinations" 
