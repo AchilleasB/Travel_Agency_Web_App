@@ -1,7 +1,9 @@
 <script setup>
 import { ref } from 'vue';
 import axios from '../../axios-auth';
+import { useUserStore } from '../../stores/user';
 
+const userStore = useUserStore();
 
 const username = ref('');
 const email = ref('');
@@ -10,28 +12,28 @@ const successMessage = ref('');
 const errorMessage = ref('');
 
 const signup = async () => {
-    const response = await axios.post('users/signup', {
-        username: username.value,
-        email: email.value,
-        password: password.value
-    });
-    console.log(response);
+    try {
+        const response = await userStore.signup(email.value, password.value, username.value);
 
-    if(response.data) {
-        successMessage.value = `${response.data.username} has successfully signed up!`;
-        errorMessage.value = '';
-    }else {
-        errorMessage.value = 'Something went wrong!';
-        successMessage.value = '';
+        if (response.data) {
+            successMessage.value = `${response.data.username} has successfully signed up!`;
+            errorMessage.value = '';
+        } else {
+            errorMessage.value = response.response.data.errorMessage;
+            successMessage.value = '';
+        }
+
+        setTimeout(() => {
+            successMessage.value = '';
+            errorMessage.value = '';
+            username.value = '';
+            email.value = '';
+            password.value = '';
+        }, 3000);
     }
-
-    setTimeout(() => {
-        successMessage.value = '';
-        errorMessage.value = '';
-        username.value = '';
-        email.value = '';
-        password.value = '';
-    }, 3000);
+    catch (error) {
+        console.log(error);
+    }
 }
 </script>
 
@@ -48,7 +50,8 @@ const signup = async () => {
                 </div>
                 <div class="mb-3">
                     <label for="inputSignupEmail" class="form-label">Email address</label>
-                    <input v-model="email" type="email" class="form-control" id="inputSignupEmail" name="email" aria-describedby="emailHelp">
+                    <input v-model="email" type="email" class="form-control" id="inputSignupEmail" name="email"
+                        aria-describedby="emailHelp">
                     <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
                 </div>
                 <div class="mb-3">

@@ -1,9 +1,19 @@
 <script setup>
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+import { useUserStore } from '../stores/user';
 
+const userStore = useUserStore();
+
+const router = useRouter();
 const visible = ref(false);
-</script>
 
+const logout = () => {
+  userStore.logout();
+  router.push({ name: 'home' });
+}
+
+</script>
 <template>
   <header class="text-center py-3 mb-4 ">
     <div class="mb-3">
@@ -11,39 +21,41 @@ const visible = ref(false);
         <img alt="Vue logo" src="@/assets/MakLogo.svg" class="w-100" />
       </router-link>
     </div>
-    <nav class="navbar navbar-expand-md navbar-#e9c557 bg-#e9c557">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
       <div class="container-fluid">
-        <button class="navbar-toggler" type="button" 
-                data-bs-toggle="collapse"
-                data-bs-target="#navbarsExample03"
-                @click="visible=!visible">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+          data-bs-target="#navbarNav" 
+          @click="visible = !visible">
           <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="navbar-collapse" :class="!visible?'collapse':''" id="navbarsExample03">
+        <div class="collapse navbar-collapse" :class="!visible ? 'collapse' : ''" id="navbarNav">
           <ul class="navbar-nav me-auto mb-2 mb-md-0">
             <li class="nav-item">
-              <router-link to="/" class="nav-link" @click="visible=!visible">Home</router-link>
+              <router-link to="/" class="nav-link" @click="visible = !visible">Home</router-link>
             </li>
             <li class="nav-item">
-              <router-link to="/about" class="nav-link" @click="visible=!visible">About us</router-link>
+              <router-link to="/about" class="nav-link" @click="visible = !visible">About us</router-link>
             </li>
             <li class="nav-item">
-              <router-link to="/destination" class="nav-link" @click="visible=!visible">Destinations</router-link>
+              <router-link to="/destination" class="nav-link" @click="visible = !visible">Destinations</router-link>
             </li>
             <li class="nav-item">
-              <router-link to="/category" class="nav-link" @click="visible=!visible">Categories</router-link>
+              <router-link to="/category" class="nav-link" @click="visible = !visible">Categories</router-link>
             </li>
           </ul>
           <div class="col-md-3 text-end">
             <ul class="navbar-nav me-auto mb-2 mb-md-0">
-            <li class="nav-item">
-              <router-link to="/account" class="nav-link" @click="visible=!visible">My account</router-link>
-            </li>
-            <li class="nav-item">
-              <router-link to="/reservation" class="nav-link" @click="visible=!visible">Reservations</router-link>
-            </li>
-          </ul>
+              <li class="nav-item">
+                <router-link to="/account" class="nav-link" @click="visible = !visible">My account</router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/reservation" class="nav-link" @click="visible = !visible">Reservations</router-link>
+              </li>
+              <li v-if="userStore.username" class="nav-item">
+                <button class="nav-link" @click="logout">Logout</button>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
@@ -54,16 +66,26 @@ const visible = ref(false);
 <style scoped>
 .navbar {
   width: 100vw;
-  height: 8vh;
-  background: #ffbf00ac;
+  height: 12vh;
+  background: linear-gradient(to right, #ffd633, #efc365, #f7c273);
   font-size: large;
   display: flex;
   justify-content: space-between;
-  /* align-items: stretch; */
   padding: 0 20px;
 }
 
-@media (max-width: 680px) {
-  
+@media (max-width: 767px) {
+  /* .navbar {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .navbar-nav {
+    display: block;
+    margin: 0;
+    padding: 0;
+
+  } */
+
 }
 </style>

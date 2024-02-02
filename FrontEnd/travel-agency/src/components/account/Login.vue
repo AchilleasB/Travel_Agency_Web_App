@@ -1,7 +1,9 @@
 <script setup>
 import { ref } from 'vue';
-import axios from '../../axios-auth';
 import { useRouter } from 'vue-router';
+import { useUserStore } from '../../stores/user';
+
+const userStore = useUserStore();
 
 const router = useRouter();
 
@@ -11,29 +13,32 @@ const successMessage = ref('');
 const errorMessage = ref('');
 
 const login = async () => {
-    const response = await axios.post('users/login', {
-        email: email.value,
-        password: password.value
-    });
-    console.log(response);
+    try {
+        const response = await userStore.login(email.value, password.value);
 
-    if(response.data) {
-        localStorage.setItem('jwt', response.data.jwt);
-        localStorage.setItem('user_id', response.data.user_id);
-        localStorage.setItem('user_id', response.data.username);
-        successMessage.value = response.data.message;
-        router.push({ name: 'home' });
-    }else {
-        errorMessage.value = 'Something went wrong!';
-        successMessage.value = '';
+        if(response.data){
+            successMessage.value = `${response.data.username} has successfully logged in!`;
+            errorMessage.value = '';
+
+            setTimeout(() => {
+                router.push({ name: 'home' });
+            }, 3000);
+            
+        }
+        else {
+            errorMessage.value = response.response.data.errorMessage;
+            successMessage.value = '';
+
+            setTimeout(() => {
+                successMessage.value = '';
+                errorMessage.value = '';
+                email.value = '';
+                password.value = '';
+            }, 3000);
+        }
+    } catch (error) {
+        console.log(error);
     }
-
-    setTimeout(() => {
-        successMessage.value = '';
-        errorMessage.value = '';
-        email.value = '';
-        password.value = '';
-    }, 3000);
 }
 </script>
 
@@ -50,8 +55,8 @@ const login = async () => {
                 </div>
                 <div class="mb-3">
                     <label for="inputLoginPassword" class="form-label">Password</label>
-                    <input name="password" type="password" v-model="password" class="form-control"
-                    id="inputLoginPassword" aria-describedby="passwordHelpBlock">
+                    <input name="password" type="password" v-model="password" class="form-control" id="inputLoginPassword"
+                        aria-describedby="passwordHelpBlock">
                     <div id="passwordHelpBlock" class="form-text">
                         Your password must be 8-20 characters long, contain letters and numbers, and must not
                         contain spaces,
@@ -65,7 +70,7 @@ const login = async () => {
 </template>
 
 <style scoped>
-    .login-container {
+.login-container {
     height: 100%;
     border: 1px solid black;
     border-radius: 5px;
