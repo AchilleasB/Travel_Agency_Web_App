@@ -18,9 +18,11 @@ class UserController extends Controller
     public function signup(){
         
         $user =$this->createObjectFromPostedJson(User::class);
-        $this->userService->signup($user);
-        $this->respond($user);
 
+        if ($this->userService->signup($user))
+            $this->respond($user);
+        else
+            $this->respondWithError(400, "A user with this email already exists");
     }
 
     public function login() {
@@ -33,7 +35,7 @@ class UserController extends Controller
 
         // if the method returned false, the username and/or password were incorrect
         if(!$user) {
-            $this->respondWithError(401, "Invalid login");
+            $this->respondWithError(401, "Invalid credentials");
             return;
         }
 

@@ -2,6 +2,7 @@
 namespace Services;
 
 use Repositories\UserRepository;
+use Exception;
 
 class UserService
 {
@@ -13,6 +14,9 @@ class UserService
     }
 
     public function signup($user){
+        if ($this->userRepository->getUserByEmail($user->email))
+            return false;
+
         $user->password = password_hash($user->password, PASSWORD_DEFAULT);
         return $this->userRepository->create($user);
     }
