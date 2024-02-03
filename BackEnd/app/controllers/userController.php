@@ -15,18 +15,18 @@ class UserController extends Controller
         $this->userService = new UserService();
     }
 
-    public function signup(){
-        
-        $user =$this->createObjectFromPostedJson(User::class);
+    public function signup()
+    {
+        $user = $this->createObjectFromPostedJson(User::class);
 
         if ($this->userService->signup($user))
             $this->respond($user);
         else
-            $this->respondWithError(400, "A user with this email already exists");
+            $this->respondWithError(400, "Invalid credentials");
     }
 
-    public function login() {
-
+    public function login()
+    {
         // read user data from request body
         $postedUser = $this->createObjectFromPostedJson(User::class);
 
@@ -34,18 +34,19 @@ class UserController extends Controller
         $user = $this->userService->checkEmailPassword($postedUser->email, $postedUser->password);
 
         // if the method returned false, the username and/or password were incorrect
-        if(!$user) {
+        if (!$user) {
             $this->respondWithError(401, "Invalid credentials");
             return;
         }
 
         // generate jwt
-        $tokenResponse = $this->generateJwt($user);       
+        $tokenResponse = $this->generateJwt($user);
 
-        $this->respond($tokenResponse);    
+        $this->respond($tokenResponse);
     }
 
-    public function generateJwt($user) {
+    public function generateJwt($user)
+    {
         $secret_key = "YOUR_SECRET_KEY";
 
         $issuer = "THE_ISSUER"; // this can be the domain/servername that issues the token
@@ -69,11 +70,12 @@ class UserController extends Controller
                 "id" => $user->id,
                 "username" => $user->username,
                 "email" => $user->email
-        ));
+            )
+        );
 
         $jwt = JWT::encode($payload, $secret_key, 'HS256');
 
-        return 
+        return
             array(
                 "message" => "Successful login.",
                 "jwt" => $jwt,
@@ -82,5 +84,23 @@ class UserController extends Controller
                 "email" => $user->email,
                 "expireAt" => $expire
             );
-    }    
+    }
+
+    public function update()
+    {
+        $user = $this->createObjectFromPostedJson(User::class);
+
+        if ($this->userService->update($user))
+            $this->respond($user);
+        else
+            $this->respondWithError(400, "No changes were made");
+    }
+
+   public function getOne($id){
+        $user = $this->userService->getOne($id);
+        if ($user)
+            $this->respond($user);
+        else
+            $this->respondWithError(404, "User not found");
+   }
 }

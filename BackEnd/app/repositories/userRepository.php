@@ -39,4 +39,34 @@ class UserRepository extends Repository
         }
     }
 
+    public function update($user)
+    {
+        try {
+            $stmt = $this->connection->prepare("UPDATE users SET username = :username, password = :password WHERE email = :email");
+            $stmt->bindParam(':email', $user->email);
+            $stmt->bindParam(':username', $user->username);
+            $stmt->bindParam(':password', $user->password);
+            $stmt->execute();
+            return $user;
+        } catch (PDOException $e) {
+            echo $e;
+        }
+    }
+
+    public function getOne($id)
+    {
+        try {
+            $stmt = $this->connection->prepare("SELECT id, username, email, password FROM users WHERE id = :id");
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+
+            $stmt->setFetchMode(PDO::FETCH_CLASS, User::class);
+            $user = $stmt->fetch();
+
+            return $user;
+        } catch (PDOException $e) {
+            echo $e;
+        }
+    }
+
 }

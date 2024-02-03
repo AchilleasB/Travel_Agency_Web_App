@@ -22,28 +22,18 @@ $router->delete('/trips/(\d+)', 'TripController@delete');
 
 // routes for the accommodations endpoint
 $router->get('/accommodations', 'AccommodationController@getAll');
-$router->get('/accommodations/(\d+)', 'AccommodationController@getOne');
-$router->post('/accommodations', 'AccommodationController@create');
-$router->put('/accommodations/(\d+)', 'AccommodationController@update');
-$router->delete('/accommodations/(\d+)', 'AccommodationController@delete');
 
 // routes for the destinations endpoint
 $router->get('/destinations', 'DestinationController@getAll');
-$router->get('/destinations/(\d+)', 'DestinationController@getOne');
-$router->post('/destinations', 'DestinationController@create');
-$router->put('/destinations/(\d+)', 'DestinationController@update');
-$router->delete('/destinations/(\d+)', 'DestinationController@delete');
 
 // routes for the categories endpoint
 $router->get('/categories', 'CategoryController@getAll');
-$router->get('/categories/(\d+)', 'CategoryController@getOne');
-$router->post('/categories', 'CategoryController@create');
-$router->put('/categories/(\d+)', 'CategoryController@update');
-$router->delete('/categories/(\d+)', 'CategoryController@delete');
 
 // routes for the users endpoint
 $router->post('/users/login', 'UserController@login');
 $router->post('/users/signup', 'UserController@signup');
+$router->put('/users/update', 'UserController@update');
+$router->get('/users/(\d+)', 'UserController@getOne');
 
 // Run it!
 $router->run();
