@@ -1,14 +1,13 @@
 <script setup>
 import { computed } from 'vue';
 import { parse, format } from 'date-fns';
-import { useRoute, useRouter } from 'vue-router';
+import { useRouter } from 'vue-router';
 
 const props = defineProps(['tripId', 'name', 'image', 'description',
     'departure_date', 'duration', 'price',
     'hotel_name', 'hotel_stars', 'meal_type',
     'category']);
 
-const route = useRoute();
 const router = useRouter();
 
 const formattedDepartureDate = computed(() => {

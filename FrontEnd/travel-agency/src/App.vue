@@ -2,6 +2,15 @@
 import { RouterView } from 'vue-router'
 import Navigation from './components/Navigation.vue'
 import Footer from './components/Footer.vue'
+import { useUserStore } from './stores/user'
+import { onBeforeMount } from 'vue';
+
+const userStore = useUserStore()
+
+onBeforeMount(() => {
+  userStore.autoLogin()
+})
+
 </script>
 
 <template>

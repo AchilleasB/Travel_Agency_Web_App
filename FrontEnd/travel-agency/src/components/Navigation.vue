@@ -8,11 +8,13 @@ const userStore = useUserStore();
 const router = useRouter();
 const visible = ref(false);
 
+
 const logout = () => {
   userStore.logout();
   router.push({ name: 'home' });
 }
 
+// TODO: fix the navbar collapse
 </script>
 <template>
   <header class="text-center py-3 mb-4 ">
@@ -32,28 +34,31 @@ const logout = () => {
         <div class="collapse navbar-collapse" :class="!visible ? 'collapse' : ''" id="navbarNav">
           <ul class="navbar-nav me-auto mb-2 mb-md-0">
             <li class="nav-item">
-              <router-link to="/" class="nav-link" @click="visible = !visible">Home</router-link>
+              <router-link to="/" class="nav-link" @click="visible = !visible">HOME</router-link>
             </li>
             <li class="nav-item">
-              <router-link to="/about" class="nav-link" @click="visible = !visible">About us</router-link>
+              <router-link to="/about" class="nav-link" @click="visible = !visible">ABOUT US</router-link>
             </li>
             <li class="nav-item">
-              <router-link to="/destination" class="nav-link" @click="visible = !visible">Destinations</router-link>
+              <router-link to="/destination" class="nav-link" @click="visible = !visible">DESTINATIONS</router-link>
             </li>
             <li class="nav-item">
-              <router-link to="/category" class="nav-link" @click="visible = !visible">Categories</router-link>
+              <router-link to="/category" class="nav-link" @click="visible = !visible">CATEGORIES</router-link>
             </li>
           </ul>
           <div class="col-md-3 text-end">
             <ul class="navbar-nav me-auto mb-2 mb-md-0">
-              <li class="nav-item">
-                <router-link to="/account" class="nav-link" @click="visible = !visible">My account</router-link>
+              <li v-if="!userStore.isAuthenticated" class="nav-item">
+                <router-link to="/account" class="nav-link" @click="visible = !visible"><i class="fa-solid fa-user"></i> My account</router-link>
               </li>
               <li class="nav-item">
-                <router-link to="/reservation" class="nav-link" @click="visible = !visible">Reservations</router-link>
+                <router-link to="/reservation" class="nav-link" @click="visible = !visible"><i class="fa-solid fa-cart-shopping"></i> Reservations</router-link>
               </li>
-              <li v-if="userStore.username" class="nav-item">
-                <button class="nav-link" @click="logout">Logout</button>
+              <li v-if="userStore.isAuthenticated" class="nav-item">
+                <router-link to="/profile" class="nav-link" @click="visible = !visible"><i class="fa-solid fa-user"></i> {{userStore.username}}</router-link>
+              </li>
+              <li v-if="userStore.isAuthenticated" class="nav-item">
+                <button class="nav-link" @click="logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
               </li>
             </ul>
           </div>
@@ -68,10 +73,11 @@ const logout = () => {
   width: 100vw;
   height: 12vh;
   background: linear-gradient(to right, #ffd633, #efc365, #f7c273);
-  font-size: large;
+  font-size: 1rem;
   display: flex;
   justify-content: space-between;
   padding: 0 20px;
+  color: aliceblue;
 }
 
 @media (max-width: 767px) {

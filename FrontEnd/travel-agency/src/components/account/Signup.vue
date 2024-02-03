@@ -1,6 +1,5 @@
 <script setup>
 import { ref } from 'vue';
-import axios from '../../axios-auth';
 import { useUserStore } from '../../stores/user';
 
 const userStore = useUserStore();
@@ -13,13 +12,13 @@ const errorMessage = ref('');
 
 const signup = async () => {
     try {
-        const response = await userStore.signup(email.value, password.value, username.value);
+        const res = await userStore.signup(email.value, password.value, username.value);
 
-        if (response.data) {
-            successMessage.value = `${response.data.username} has successfully signed up!`;
+        if (res.data) {
+            successMessage.value = `${res.data.username} has successfully signed up!`;
             errorMessage.value = '';
         } else {
-            errorMessage.value = response.response.data.errorMessage;
+            errorMessage.value = res.response.data.errorMessage;
             successMessage.value = '';
         }
 
@@ -29,10 +28,20 @@ const signup = async () => {
             username.value = '';
             email.value = '';
             password.value = '';
-        }, 3000);
+        }, 2000);
     }
     catch (error) {
         console.log(error);
+    }
+}
+
+const characterCount = ref(0);
+
+const  updateName = () => {
+    characterCount.value = username.value.length;
+
+    if (characterCount.value > 25) {
+        username.value = username.value.slice(0, 25);
     }
 }
 </script>
@@ -40,13 +49,14 @@ const signup = async () => {
 <template>
     <div class="signup-container">
         <div class="container fluid mt-4">
-            <h3 class="d-flex justify-content-center mb-5">Signup</h3>
+            <h3 class="d-flex justify-content-center mb-5">Sign up</h3>
             <div v-if="successMessage" class="alert alert-success">{{ successMessage }}</div>
             <div v-if="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
             <form action="" method="POST">
                 <div class="mb-3">
                     <label for="inputName" class="form-label">Name</label>
-                    <input v-model="username" type="text" class="form-control" id="inputName" name="username">
+                    <input v-model="username" @input="updateName" type="text" class="form-control" id="inputName" name="username">
+                    <!-- <div id="nameHelp" class="form-text">{{ characterCount }}/25 characters</div> -->
                 </div>
                 <div class="mb-3">
                     <label for="inputSignupEmail" class="form-label">Email address</label>

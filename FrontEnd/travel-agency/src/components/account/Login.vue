@@ -13,39 +13,34 @@ const successMessage = ref('');
 const errorMessage = ref('');
 
 const login = async () => {
-    try {
-        const response = await userStore.login(email.value, password.value);
+    const res = await userStore.login(email.value, password.value);
 
-        if(response.data){
-            successMessage.value = `${response.data.username} has successfully logged in!`;
-            errorMessage.value = '';
+    if (userStore.jwt) {
+        successMessage.value = `${userStore.username} has successfully logged in!`;
+        errorMessage.value = '';
 
-            setTimeout(() => {
-                router.push({ name: 'home' });
-            }, 3000);
-            
-        }
-        else {
-            errorMessage.value = response.response.data.errorMessage;
+        setTimeout(() => {
+            router.push({ name: 'home' });
+        }, 2000);
+    } else {
+        errorMessage.value = res.response.data.errorMessage;
+        successMessage.value = '';
+
+        setTimeout(() => {
             successMessage.value = '';
-
-            setTimeout(() => {
-                successMessage.value = '';
-                errorMessage.value = '';
-                email.value = '';
-                password.value = '';
-            }, 3000);
-        }
-    } catch (error) {
-        console.log(error);
+            errorMessage.value = '';
+            email.value = '';
+            password.value = '';
+        }, 2000);
     }
 }
+
 </script>
 
 <template>
     <div class="login-container">
         <div class="container fluid mt-4 ">
-            <h3 class="d-flex justify-content-center mb-5">Login</h3>
+            <h3 class="d-flex justify-content-center mb-5">Log in</h3>
             <div v-if="successMessage" class="alert alert-success">{{ successMessage }}</div>
             <div v-if="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
             <form action="" method="POST">
