@@ -1,11 +1,14 @@
 <script setup>
-import ProfileWidget from '../components/ProfileWidget.vue';
+import ProfileCard from '../components/ProfileCard.vue';
 
 </script>
 
 <template>
-    <div class="container">
-        <h1>Profile</h1>
-        <ProfileWidget />
-    </div>
+    <main>
+        <ProfileCard />
+    </main>
 </template>
+
+<style scoped>
+
+</style>

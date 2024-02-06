@@ -10,7 +10,7 @@ export const useUserStore = defineStore('userStore', {
     }),
 
     getters: {
-        isAuthenticated: (state) => state.jwt !== ''
+        isAuthenticated: (state) => state.jwt !== '',
     },
 
 
@@ -29,11 +29,11 @@ export const useUserStore = defineStore('userStore', {
                 this.username = response.data.username;
                 this.email = response.data.email;
 
-                localStorage.setItem('jwt', response.data.jwt);
-                localStorage.setItem('user_id', response.data.user_id);
-                axios.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.jwt;
+                localStorage.setItem('jwt', this.jwt);
+                localStorage.setItem('user_id', this.id);
+                axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.jwt;
                 
-
+                console.log(this.jwt, this.id);
                 return response;
             } catch (error) {
                 console.log(error);
@@ -44,12 +44,13 @@ export const useUserStore = defineStore('userStore', {
         autoLogin() {
             const jwt = localStorage.getItem('jwt');
             const id = localStorage.getItem('user_id');
+            console.log(jwt, id);
 
-            if (jwt) {
+            if (jwt && id) {
                 this.jwt = jwt;
                 this.id = id;
                 axios.defaults.headers.common['Authorization'] = 'Bearer ' + jwt;
-                this.fetchUserData();
+                this.fetchUserData(id);
             }
         },
 
@@ -86,21 +87,16 @@ export const useUserStore = defineStore('userStore', {
                 });
                 console.log(response);
 
-                if (response.status === 200) {
-                    this.username = response.data.username;
-                    return { success: true };
-                }else{
-                    return { success: false};
-                }
+                return response;
             } catch (error) {
                 console.log(error);
                 return error;
             }
         },
 
-        async fetchUserData() {
+        async fetchUserData(id) {
             try {
-                const response = await axios.get(`/users/${this.id}`);
+                const response = await axios.get(`/users/`+ id);
                 console.log(response);
 
                 if (response.data) {

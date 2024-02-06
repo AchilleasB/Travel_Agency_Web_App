@@ -23,7 +23,7 @@ const formattedDepartureDate = computed(() => {
 // Will keep in mind for when reservation is implemented
 const reserveTrip = () => {
     // TODO: implement the JWT authentication before working on this
-    const userId = localStorage.getItem('userId');
+    const userId = localStorage.getItem('user_id');
 
     router.push({
         name: 'reservation',
