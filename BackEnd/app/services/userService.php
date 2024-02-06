@@ -24,7 +24,11 @@ class UserService
             return false;
 
         $user->password = password_hash($user->password, PASSWORD_DEFAULT);
-        return $this->userRepository->create($user);
+
+        $createdUser = $this->userRepository->create($user);
+        $createdUser->password = '';
+
+        return $createdUser;
     }
 
     public function checkEmailPassword($email, $password)
@@ -41,8 +45,7 @@ class UserService
             return false;
 
         // do not pass the password hash to the caller 
-        // instead pass the one provided by the user
-        $user->password = $password;
+        $user->password = '';
 
         return $user;
     }
@@ -56,18 +59,33 @@ class UserService
     {
         $userToUpdate = $this->userRepository->getUserByEmail($user->email);
 
+        // Check if a new password is provided
+        $isNewPasswordProvided = $user->password !== '';
+
+        // Verify if passwords are equal
         $passwordsAreEqual = $this->verifyPassword($user->password, $userToUpdate->password);
 
-        if ($userToUpdate->username === $user->username && $passwordsAreEqual)
+        // If the username and password are the same, no update is needed
+        if ($userToUpdate->username === $user->username && (!$isNewPasswordProvided || $passwordsAreEqual)) {
             return false;
+        }
 
-        $user->password = password_hash($user->password, PASSWORD_DEFAULT);
+        // If a new password is provided, hash and update it
+        if ($isNewPasswordProvided) {
+            $user->password = password_hash($user->password, PASSWORD_DEFAULT);
+        } else {
+            // If no new password is provided, retain the existing password
+            $user->password = $userToUpdate->password;
+        }
+
         return $this->userRepository->update($user);
     }
 
     public function getOne($id)
     {
-        return $this->userRepository->getOne($id);
+        $user = $this->userRepository->getOne($id);
+        $user->password = '';
+        return $user;
     }
 
     public function isValidEmail($email)

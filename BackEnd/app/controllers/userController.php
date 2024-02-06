@@ -88,19 +88,32 @@ class UserController extends Controller
 
     public function update()
     {
+        $token = $this->checkForJwt();
+        if (!$token)
+            return;
+
         $user = $this->createObjectFromPostedJson(User::class);
 
-        if ($this->userService->update($user))
-            $this->respond($user);
-        else
+        $updatedUser = $this->userService->update($user);
+
+        if ($updatedUser) {
+            $updatedUser->password = '';
+            $this->respond($updatedUser);
+        } else {
             $this->respondWithError(400, "No changes were made");
+        }
     }
 
-   public function getOne($id){
+    public function getOne($id)
+    {
+        // $token = $this->checkForJwt();
+        // if (!$token)
+        //     return;
+
         $user = $this->userService->getOne($id);
         if ($user)
             $this->respond($user);
         else
             $this->respondWithError(404, "User not found");
-   }
+    }
 }
