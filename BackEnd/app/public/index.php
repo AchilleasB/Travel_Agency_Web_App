@@ -35,6 +35,11 @@ $router->post('/users/signup', 'UserController@signup');
 $router->put('/users/update', 'UserController@update');
 $router->get('/users/(\d+)', 'UserController@getOne');
 
+// routes for the reservations endpoint
+$router->get('/reservations', 'ReservationController@getAll');
+$router->post('/reservations', 'ReservationController@create');
+
+
 // Run it!
 $router->run();
 // var_dump('Line executed: ', $router);
