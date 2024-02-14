@@ -26,7 +26,7 @@ class DestinationController extends Controller
 
         $destinations = $this->destinationService->getAllDestinations($offset, $limit);
         if(!$destinations){
-            $this->respondWithError(404, "No categories found");
+            $this->respondWithError(404, "No destinations found");
             return;
         }
         $this->respond($destinations);        
