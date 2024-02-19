@@ -1,14 +1,18 @@
 <script setup>
-import { computed } from 'vue';
-import { parse, format } from 'date-fns';
+import ReservationForm from './reservation/ReservationForm.vue';
 import { useRouter } from 'vue-router';
+import { ref, computed } from 'vue';
+import { parse, format } from 'date-fns';
+import { useUserStore } from '../stores/user';
+
+const userStore = useUserStore();
+const router = useRouter();
 
 const props = defineProps(['tripId', 'name', 'image', 'description',
     'departure_date', 'duration', 'price',
     'hotel_name', 'hotel_stars', 'meal_type',
     'category']);
 
-const router = useRouter();
 
 const formattedDepartureDate = computed(() => {
     // retrieve the date portion from the date object and omit the time
@@ -19,20 +23,27 @@ const formattedDepartureDate = computed(() => {
     return format(parsedDate, 'dd MMM yyyy');
 });
 
-// Maybe I should pass the tripId as a function parameter already
-// Will keep in mind for when reservation is implemented
-const reserveTrip = () => {
-    // TODO: implement the JWT authentication before working on this
-    const userId = localStorage.getItem('user_id');
+const isFormVisible = ref(false);
 
-    router.push({
-        name: 'reservation',
-        params: {
-            userId: userId,
-            tripId: props.tripId
-        }
-    });
-};
+
+const checkLoggedIn = () => {
+    if (!userStore.username) {
+        // User is not logged in, display a message and redirect to /login
+        alert('You must log in first.');
+        router.push('/account');
+    } else {
+        isFormVisible.value = true;
+    }
+}
+
+const fillOutFormClick = () => {
+    checkLoggedIn();
+}
+
+const cancelReservationForm = () => {
+    isFormVisible.value = false;
+}
+
 </script>
 
 <template>
@@ -65,8 +76,13 @@ const reserveTrip = () => {
             <div class="price-container">
                 <label for="trip-price">Price:</label>
                 <p class="trip-price">{{ price }} €</p>
-                <button @click="reserveTrip()" class="reserve-button">Reserve</button>
+                <button v-if="!isFormVisible" @click="fillOutFormClick" class="fill-out-form-button">Fill out the
+                    reservation form</button>
             </div>
+        </div>
+        <div v-if="isFormVisible" class="form-container">
+            <ReservationForm :tripId="tripId" :name="name" :departureDate="formattedDepartureDate" :price="price" />
+            <button @click.prevent="cancelReservationForm" type="submit" class="cancel-form-button">Close form</button>
         </div>
     </div>
 </template>
@@ -137,7 +153,9 @@ const reserveTrip = () => {
     margin: 0 0 auto;
 }
 
-.left-details p, .right-details p, .price-container p{
+.left-details p,
+.right-details p,
+.price-container p {
     font-weight: bold;
 }
 
@@ -150,14 +168,34 @@ const reserveTrip = () => {
     flex-direction: column;
     align-items: center;
 }
-.reserve-button {
+
+.fill-out-form-button {
     margin: 1rem;
     background-color: #3e66f3;
     border: none;
-    font-size: 1.5rem;
+    font-size: 1rem;
     color: #fff;
     padding: 15px 20px;
     width: 50%;
 }
 
+.cancel-form-button {
+    margin: 1rem;
+    background-color: #8c2323;
+    border: none;
+    font-size: 1rem;
+    color: #fff;
+    padding: 10px 10px;
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 </style>    
