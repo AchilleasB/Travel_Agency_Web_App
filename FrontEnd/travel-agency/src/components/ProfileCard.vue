@@ -1,7 +1,6 @@
 <script setup>
 import { ref } from 'vue';
 import { useUserStore } from '../stores/user';
-import { set } from 'date-fns';
 
 const userStore = useUserStore();
 const password = ref('');
