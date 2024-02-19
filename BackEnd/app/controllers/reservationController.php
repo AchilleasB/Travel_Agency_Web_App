@@ -38,6 +38,7 @@ class ReservationController extends Controller
     {
         try {
             $reservation = $this->createObjectFromPostedJson(Reservation::class);
+            var_dump($reservation);
             $reservation = $this->reservationService->create($reservation);
 
         } catch (Exception $e) {

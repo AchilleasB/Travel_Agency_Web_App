@@ -41,6 +41,22 @@ class ReservationRepository extends Repository
             $stmt->bindParam(':status', $reservation->status, PDO::PARAM_STR);
             $stmt->execute();
             $reservation->id = $this->connection->lastInsertId();
+            $reservation = $this->getOneReservation($reservation->id); 
+            return $reservation;
+        } catch (PDOException $e) {
+            echo $e;
+        }
+    }
+
+    function getOneReservation($id)
+    {
+        try {
+            $query = "SELECT * FROM reservations WHERE id = :id";
+            $stmt = $this->connection->prepare($query);
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+            $stmt->execute();
+            $stmt->setFetchMode(PDO::FETCH_CLASS, Reservation::class);
+            $reservation = $stmt->fetch();
             return $reservation;
         } catch (PDOException $e) {
             echo $e;

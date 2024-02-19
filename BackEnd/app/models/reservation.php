@@ -9,8 +9,8 @@ class Reservation {
     public int $total_price;
     public string $status;
 
-    const STATUS_PENDING = "pending";
-    const STATUS_APPROVED = "approved";
+    const STATUS_PENDING = "Pending";
+    const STATUS_APPROVED = "Approved";
 
     public function setStatus(string $status): void
     {
