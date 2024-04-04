@@ -14,6 +14,13 @@ class TripService {
         $trips = $this->tripRepository->getAllTrips($offset, $limit);
         return $trips;
     }
+
+    public function getOneTrip($id)
+    {
+        $trip = $this->tripRepository->getOneTrip($id);
+        return $trip;
+    }
+
     public function create($trip){
         $trip = $this->tripRepository->create($trip);
         return $trip;

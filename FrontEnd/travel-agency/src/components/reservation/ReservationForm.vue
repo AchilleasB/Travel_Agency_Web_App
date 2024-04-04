@@ -25,7 +25,7 @@ const confirmReservation = async () => {
         successMessage.value = 'Your reservation has been registered! We will contact you via email for further details.';
         setTimeout(() => {
             successMessage.value = '';
-        }, 2000);
+        }, 3000);
     }
 
 }

@@ -27,6 +27,47 @@ export const useReservationStore = defineStore('reservationStore', {
                 console.log(error);
                 return error;
             }
+        },
+        
+        async getReservations() {
+            try {
+                const response = await axios.get('reservations');
+                return response;
+            } catch (error) {
+                console.log(error);
+                return error;
+            }
+        },
+        
+        async fetchReservationData(user_id) {
+            try {
+                const response = await axios.get(`/reservations/`+ user_id);
+                console.log(response);
+
+                if (response.data) {
+                    this.user_id = response.data.user_id;
+                    this.trip_id = response.data.trip_id;
+                    this.num_of_travellers = response.data.num_of_travellers;
+                    this.total_price = response.data.total_price;
+                    this.status = response.data.status;
+
+                    return response;
+                }
+            } catch (error) {
+                console.log(error);
+                return error;
+            }
+        },
+
+        async deleteReservation(reservation_id) {
+            try {
+                const response = await axios.delete(`/reservations/`+ reservation_id);
+                console.log(response);
+                return response;
+            } catch (error) {
+                console.log(error);
+                return error;
+            }
         }
     }
 });

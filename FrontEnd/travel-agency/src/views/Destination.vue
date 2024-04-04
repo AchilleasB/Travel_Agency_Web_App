@@ -6,16 +6,16 @@ import { useRouter } from 'vue-router';
 
 const router = useRouter();
 const destinations = ref([]);
-// console.log(destinations);
 
 const getDestinations = async () => {
     const response = await axios.get('destinations');
     destinations.value = response.data;
+
+    console.log(destinations.value);
 };
 
 const navigateToTrips = (destinationId) => {
     router.push({ name: 'destination-trips', params: { id: destinationId } });
-    console.log(destinationId);
 }
 
 onMounted(() => {
@@ -26,7 +26,7 @@ onMounted(() => {
 
 <template>
     <div class="container">
-        <h3 class="d-flex justify-content-center">Travel to every corner of the planet</h3>
+        <h3 class="d-flex justify-content-center">Travel to any corner of the planet</h3>
         <div class="destination-cards">
             <DestinationCard 
                 v-for="destination in destinations" 

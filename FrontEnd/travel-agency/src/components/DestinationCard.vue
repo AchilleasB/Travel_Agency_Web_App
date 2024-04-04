@@ -2,6 +2,7 @@
 
 const props = defineProps(['destinationName', 'image', 'description']);
 console.log(props);
+
 </script>
 
 <template>

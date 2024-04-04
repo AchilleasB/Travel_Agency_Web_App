@@ -6,15 +6,12 @@ import axios from '../axios-auth';
 
 const router = useRouter();
 const trips = ref([]);
-console.log(trips);
 
 const getTrips = async () => {
     const response = await axios.get('trips');
     trips.value = response.data;
 };
 
-const props = defineProps(['id'], String);
-console.log(props.id);
 
 const routeName = router.currentRoute.value.name;
 const categoryOrDestinationId  = ref(null);
@@ -38,7 +35,6 @@ watchEffect(() => {
 });
 
 onMounted(() => {
-    console.log('Component mounted');
     getTrips();
 });
 

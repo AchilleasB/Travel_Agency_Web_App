@@ -18,7 +18,7 @@ class TripRepository extends Repository
             $query = "SELECT trips.*, categories.category_type, accommodations.hotel_name, accommodations.hotel_stars,
                 accommodations.meal_type, destinations.name
              FROM trips
-             INNER JOIN categories ON trips.category_id = categories.id
+            INNER JOIN categories ON trips.category_id = categories.id
              INNER JOIN accommodations ON trips.accommodation_id = accommodations.id
              INNER JOIN destinations ON trips.destination_id = destinations.id";
 
@@ -34,8 +34,8 @@ class TripRepository extends Repository
             }
 
             $stmt->execute();
-            $trips =array();
-            while (($row = $stmt->fetch(PDO::FETCH_ASSOC)) !== false  ) {
+            $trips = array();
+            while (($row = $stmt->fetch(PDO::FETCH_ASSOC)) !== false) {
                 $trips[] = $this->rowToTrip($row);
             }
 
@@ -44,6 +44,7 @@ class TripRepository extends Repository
             echo $e;
         }
     }
+
     function create($trip)
     {
         try {
@@ -63,7 +64,7 @@ class TripRepository extends Repository
             ]);
 
             $trip->id = $this->connection->lastInsertId();
-            $trip = $this->getOneTrip($trip->id); 
+            $trip = $this->getOneTrip($trip->id);
             return $trip;
         } catch (PDOException $e) {
             echo $e;

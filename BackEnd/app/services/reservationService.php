@@ -23,4 +23,9 @@ class ReservationService
         $reservation->setStatus(Reservation::STATUS_PENDING);
         return $this->reservationRepository->create($reservation);
     }
+
+    public function getReservationsByUser($userId)
+    {
+        return $this->reservationRepository->getReservationsByUser($userId);
+    }
 }

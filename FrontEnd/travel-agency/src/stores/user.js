@@ -13,7 +13,6 @@ export const useUserStore = defineStore('userStore', {
         isAuthenticated: (state) => state.jwt !== '',
     },
 
-
     actions: {
 
         async login(email, password) {
@@ -99,7 +98,7 @@ export const useUserStore = defineStore('userStore', {
         async fetchUserData(id) {
             try {
                 const response = await axios.get(`/users/`+ id);
-                console.log(response);
+                // console.log(response);
 
                 if (response.data) {
                     this.username = response.data.username;

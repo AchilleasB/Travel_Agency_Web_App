@@ -38,8 +38,7 @@ $router->get('/users/(\d+)', 'UserController@getOne');
 // routes for the reservations endpoint
 $router->get('/reservations', 'ReservationController@getAll');
 $router->post('/reservations', 'ReservationController@create');
-
-
+$router->get('/reservations/(\d+)', 'ReservationController@getReservationsByUser');
 // Run it!
 $router->run();
 // var_dump('Line executed: ', $router);

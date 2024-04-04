@@ -16,6 +16,12 @@ class ReservationController extends Controller
 
     public function getAll()
     {
+
+        // Checks for a valid jwt, returns 401 if none is found
+        // $token = $this->checkForJwt();
+        // if (!$token)
+        //     return;
+        
         $offset = NULL;
         $limit = NULL;
 
@@ -46,6 +52,15 @@ class ReservationController extends Controller
         }
 
         $this->respond($reservation);
+    }
+
+    public function getReservationsByUser($userId){
+        $reservations = $this->reservationService->getReservationsByUser($userId);
+        if(!$reservations){
+            $this->respondWithError(404, "No reservations found");
+            return;
+        }
+        $this->respond($reservations);
     }
 
 }

@@ -63,4 +63,19 @@ class ReservationRepository extends Repository
         }
     }
 
+    function getReservationsByUser($userId)
+    {
+        try {
+            $query = "SELECT * FROM reservations WHERE user_id = :user_id";
+            $stmt = $this->connection->prepare($query);
+            $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
+            $stmt->execute();
+            $stmt->setFetchMode(PDO::FETCH_CLASS, Reservation::class);
+            $reservations = $stmt->fetchAll();
+            return $reservations;
+        } catch (PDOException $e) {
+            echo $e;
+        }
+    }
+
 }

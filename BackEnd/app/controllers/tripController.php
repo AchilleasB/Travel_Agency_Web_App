@@ -34,6 +34,19 @@ class TripController extends Controller {
         
         $this->respond($trips);
     }
+
+    public function getOne($id)
+    {
+        $trip = $this->tripService->getOneTrip($id);
+
+        if(!$trip){
+            $this->respondWithError(404, "Trip not found");
+            return;
+        }
+
+        $this->respond($trip);
+    }
+
     public function create()
     {
         try {
