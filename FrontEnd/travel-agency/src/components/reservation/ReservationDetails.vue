@@ -4,18 +4,6 @@
 const props = defineProps(['tripId','tripName','tripDepartureDate','tripDuration','tripHotelName','tripHotelStars','tripMealType']); 
 console.log(props.tripId);
 
-// const trip = ref({});
-
-// const getTripById = async () => {
-//     const response = await axios.get('trips/' + props.tripId);
-//     trip.value = response.data;
-//     console.log(trip.value);
-// };
-
-// onMounted(() => {
-//     getTripById();
-// });
-
 </script>
 
 <template>

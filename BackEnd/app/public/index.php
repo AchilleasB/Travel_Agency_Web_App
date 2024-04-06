@@ -39,6 +39,8 @@ $router->get('/users/(\d+)', 'UserController@getOne');
 $router->get('/reservations', 'ReservationController@getAll');
 $router->post('/reservations', 'ReservationController@create');
 $router->get('/reservations/(\d+)', 'ReservationController@getReservationsByUser');
+$router->delete('/reservations/(\d+)', 'ReservationController@delete');
+$router->put('/reservations/(\d+)', 'ReservationController@approve');
 // Run it!
 $router->run();
 // var_dump('Line executed: ', $router);

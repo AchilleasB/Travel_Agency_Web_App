@@ -41,7 +41,7 @@ export const useReservationStore = defineStore('reservationStore', {
         
         async fetchReservationData(user_id) {
             try {
-                const response = await axios.get(`/reservations/`+ user_id);
+                const response = await axios.get(`reservations/`+ user_id);
                 console.log(response);
 
                 if (response.data) {
@@ -61,7 +61,18 @@ export const useReservationStore = defineStore('reservationStore', {
 
         async deleteReservation(reservation_id) {
             try {
-                const response = await axios.delete(`/reservations/`+ reservation_id);
+                const response = await axios.delete(`reservations/`+ reservation_id);
+                console.log(response);
+                return response;
+            } catch (error) {
+                console.log(error);
+                return error;
+            }
+        },
+
+        async approveReservation(reservation_id) {
+            try {
+                const response = await axios.put(`reservations/`+ reservation_id);
                 console.log(response);
                 return response;
             } catch (error) {

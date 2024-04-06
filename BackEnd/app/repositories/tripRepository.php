@@ -71,25 +71,25 @@ class TripRepository extends Repository
         }
     }
 
-    function getOneTrip(int $id)
+    function getOneTrip($id)
     {
         try {
-            $query = $this->connection->prepare(
-                "SELECT trip.*, category.category_type, accommodation.hotel_name, accommodation.hotel_stars,
+            $query = "SELECT trip.*, category.category_type, accommodation.hotel_name, accommodation.hotel_stars,
                 accommodation.meal_type, destination.name
              FROM trips as trip
              INNER JOIN categories as category ON trip.category_id = category.id
              INNER JOIN accommodations as accommodation ON trip.accommodation_id = accommodation.id
              INNER JOIN destinations as destination ON trip.destination_id = destination.id
-             WHERE trip.id = ?"
-            );
+             WHERE trip.id = :id";
+
             $stmt = $this->connection->prepare($query);
-            $stmt->bindParam(':id', $id);
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
             $stmt->execute();
 
             $stmt->setFetchMode(PDO::FETCH_ASSOC);
             $row = $stmt->fetch();
             $trip = $this->rowToTrip($row);
+
             return $trip;
         } catch (PDOException $e) {
             echo $e;

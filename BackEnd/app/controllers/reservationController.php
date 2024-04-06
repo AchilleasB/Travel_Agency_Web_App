@@ -18,9 +18,9 @@ class ReservationController extends Controller
     {
 
         // Checks for a valid jwt, returns 401 if none is found
-        // $token = $this->checkForJwt();
-        // if (!$token)
-        //     return;
+        $token = $this->checkForJwt();
+        if (!$token)
+            return;
         
         $offset = NULL;
         $limit = NULL;
@@ -47,6 +47,13 @@ class ReservationController extends Controller
             var_dump($reservation);
             $reservation = $this->reservationService->create($reservation);
 
+            if(!$reservation){
+                $this->respondWithError(404, "No reservation created");
+                return;
+            }
+
+            $this->respond($reservation);
+
         } catch (Exception $e) {
             $this->respondWithError(500, $e->getMessage());
         }
@@ -61,6 +68,42 @@ class ReservationController extends Controller
             return;
         }
         $this->respond($reservations);
+    }
+
+    public function delete($id)
+    {
+        try {
+            $reservation = $this->reservationService->getOneReservation($id);
+            if (!$reservation) {
+                $this->respondWithError(404, "Reservation not deleted");
+                return;
+            }
+            $this->reservationService->deleteReservation($id);
+            $this->respond($reservation);
+        } catch (Exception $e) {
+            $this->respondWithError(500, $e->getMessage());
+        }
+    }
+
+    public function approve($id)
+    {
+        try {
+            $reservation = $this->reservationService->getOneReservation($id);
+            if (!$reservation) {
+                $this->respondWithError(404, "Reservation not found");
+                return;
+            }
+
+            $approvedReservation = $this->reservationService->approve($reservation);
+            if (!$approvedReservation) {
+                $this->respondWithError(404, "Reservation not approved");
+                return;
+            }
+
+            $this->respond($reservation);
+        } catch (Exception $e) {
+            $this->respondWithError(500, $e->getMessage());
+        }
     }
 
 }

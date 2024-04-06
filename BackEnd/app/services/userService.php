@@ -71,10 +71,10 @@ class UserService
         }
 
         // If a new password is provided, hash and update it
+        // else retain the existing password
         if ($isNewPasswordProvided) {
             $user->password = password_hash($user->password, PASSWORD_DEFAULT);
         } else {
-            // If no new password is provided, retain the existing password
             $user->password = $userToUpdate->password;
         }
 

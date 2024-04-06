@@ -4,13 +4,15 @@ import axios from '../axios-auth';
 export const useUserStore = defineStore('userStore', {
     state: () => ({
         jwt: '',
-        id: '',
+        id: 0,
         username: '',
         email: '',
+        role:'',
     }),
 
     getters: {
         isAuthenticated: (state) => state.jwt !== '',
+        isAdmin: (state) => state.role === 'admin',
     },
 
     actions: {
@@ -27,12 +29,15 @@ export const useUserStore = defineStore('userStore', {
                 this.id = response.data.user_id;
                 this.username = response.data.username;
                 this.email = response.data.email;
+                this.role = response.data.role;
 
                 localStorage.setItem('jwt', this.jwt);
                 localStorage.setItem('user_id', this.id);
+                localStorage.setItem('username', this.username);
                 axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.jwt;
                 
                 console.log(this.jwt, this.id);
+
                 return response;
             } catch (error) {
                 console.log(error);
@@ -43,12 +48,15 @@ export const useUserStore = defineStore('userStore', {
         autoLogin() {
             const jwt = localStorage.getItem('jwt');
             const id = localStorage.getItem('user_id');
+            const username = localStorage.getItem('username');
             console.log(jwt, id);
 
             if (jwt && id) {
+                axios.defaults.headers.common['Authorization'] = 'Bearer ' + jwt;
                 this.jwt = jwt;
                 this.id = id;
-                axios.defaults.headers.common['Authorization'] = 'Bearer ' + jwt;
+                // this.username = username;
+
                 this.fetchUserData(id);
             }
         },
@@ -103,7 +111,8 @@ export const useUserStore = defineStore('userStore', {
                 if (response.data) {
                     this.username = response.data.username;
                     this.email = response.data.email;
-
+                    this.id = response.data.id;
+                    this.role = response.data.role;
                     return response;
                 }
             } catch (error) {
@@ -111,6 +120,7 @@ export const useUserStore = defineStore('userStore', {
                 return error;
             }
         },
+
     }
 
 });

@@ -11,10 +11,11 @@ class UserRepository extends Repository
     public function create($user)
     {
         try {
-            $stmt = $this->connection->prepare("INSERT into users (username, email, password) VALUES (:username, :email, :password)");
+            $stmt = $this->connection->prepare("INSERT into users (username, email, password, role) VALUES (:username, :email, :password. :role)");
             $stmt->bindParam(':username', $user->username);
             $stmt->bindParam(':email', $user->email);
             $stmt->bindParam(':password', $user->password);
+            $stmt->bindParam(':role', $user->role);
             $stmt->execute();
             $user->id = $this->connection->lastInsertId();
             return $user;
@@ -26,7 +27,7 @@ class UserRepository extends Repository
     function getUserByEmail($email)
     {
         try {
-            $stmt = $this->connection->prepare("SELECT id, username, email, password FROM users WHERE email = :email");
+            $stmt = $this->connection->prepare("SELECT id, username, email, password, role FROM users WHERE email = :email");
             $stmt->bindParam(':email', $email);
             $stmt->execute();
 
@@ -56,7 +57,7 @@ class UserRepository extends Repository
     public function getOne($id)
     {
         try {
-            $stmt = $this->connection->prepare("SELECT id, username, email, password FROM users WHERE id = :id");
+            $stmt = $this->connection->prepare("SELECT id, username, email, password, role FROM users WHERE id = :id");
             $stmt->bindParam(':id', $id);
             $stmt->execute();
 

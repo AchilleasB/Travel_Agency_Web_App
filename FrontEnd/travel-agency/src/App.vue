@@ -3,11 +3,11 @@ import { RouterView } from 'vue-router'
 import Navigation from './components/Navigation.vue'
 import Footer from './components/Footer.vue'
 import { useUserStore } from './stores/user'
-import { onBeforeMount } from 'vue';
+import { onMounted } from 'vue';
 
 const userStore = useUserStore()
 
-onBeforeMount(() => {
+onMounted(() => {
   userStore.autoLogin()
 })
 
@@ -26,7 +26,7 @@ onBeforeMount(() => {
 <style scoped>
 .app-container {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   min-height: 100vh;
 }
 

@@ -78,4 +78,33 @@ class ReservationRepository extends Repository
         }
     }
 
+    function deleteReservation($id)
+    {
+        try {
+            $query = "DELETE FROM reservations WHERE id = :id";
+            $stmt = $this->connection->prepare($query);
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+            $stmt->execute();
+
+            return true;
+        } catch (PDOException $e) {
+            echo $e;
+        }
+    }
+
+    function update($reservation)
+    {
+        try {
+            $query = "UPDATE reservations SET status = :status WHERE id = :id";
+            $stmt = $this->connection->prepare($query);
+            $stmt->bindParam(':status', $reservation->status, PDO::PARAM_STR);
+            $stmt->bindParam(':id', $reservation->id, PDO::PARAM_INT);
+            $stmt->execute();
+            
+            return $reservation;
+        } catch (PDOException $e) {
+            echo $e;
+        }
+    }
+
 }
