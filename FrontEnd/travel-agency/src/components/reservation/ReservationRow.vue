@@ -3,25 +3,26 @@ import { ref, onMounted } from 'vue';
 import ReservationDetails from './ReservationDetails.vue';
 import { useReservationStore } from '../../stores/reservation';
 import { useUserStore } from '../../stores/user';
-import axios from '../../axios-auth';
+import { useTripStore } from '../../stores/trip';
 
 const reservationStore = useReservationStore();
 const userStore = useUserStore();
+const tripStore = useTripStore();
 
-const props = defineProps(['reservationId', 'userId', 'tripId', 'numOfTravellers', 'totalPrice', 'status']);
+const props = defineProps(['reservationId', 'userId', 'tripId', 'totalPrice', 'numOfTravellers', 'status']);
 
 const trip = ref({});
 
-const getTripById = async () => {
-    const response = await axios.get('trips/' + props.tripId);
+const getTripData = async () => {
+    const response = await tripStore.getTripData(props.tripId);
     trip.value = response.data;
     console.log(trip.value);
 };
 
 const isRowVisible = ref(false);
 
-const showTripDetails = () => {
-    getTripById();
+const showTripDetails = async () => {
+    await getTripData();
     console.log("Trip in showTripDetails:", trip.value);
     isRowVisible.value = true;
 }
@@ -32,7 +33,7 @@ const hideTripDetails = () => {
 
 const cancelReservation = async () => {
     if (confirm('Are you sure you want to cancel this reservation?')) {
-        reservationStore.deleteReservation(props.reservationId);
+        await reservationStore.deleteReservation(props.reservationId);
     }
 };
 
@@ -52,22 +53,25 @@ const approveReservation = async () => {
         <div class="col-sm-6 col-md-8 text-center w-65">
             <div class="row d-flex align-items-center mt-3">
                 <div class="col">
-                    <span class="item-data-value">{{ props.reservationId }}</span>
+                    <span class="item-data-value">{{ props.userId }}</span>
                 </div>
+                <div class="col">
+                    <span class="item-data-value">{{  }}</span>
+                </div>
+                <!-- <div class="col">
+                    <span class="item-data-value">{{ props.reservationId }}</span>
+                </div> -->
                 <div class="col">
                     <span class="item-data-value">{{ props.tripId }}</span>
                 </div>
                 <div class="col">
-                    <span class="item-data-value">{{ props.numOfTravellers }}</span>
-                </div>
-                <div class="col">
-                    <span class="item-data-value">{{ props.totalPrice }}</span>
+                    <span class="item-data-value">{{  }}</span>
                 </div>
             </div>
         </div>
         <div class="col-sm-6 col-md-4 d-flex mt-3 mb-3">
             <div class="row">
-                <div v-if="!userStore.isAdmin" class="col">
+                <div class="col">
                     <span class="item-data-value">
                         <button v-if="!isRowVisible" @click="showTripDetails" class="btn btn-outline-primary trip-details-button">Details</button>
                     </span>
@@ -78,10 +82,10 @@ const approveReservation = async () => {
                     </span>
                 </div>
                 <div v-if="userStore.isAdmin" class="col">
-                    <span v-if="props.status!=='Approved'" class="item-data-value">
+                    <span v-if="reservationStore.status!=='Approved'" class="item-data-value">
                         <button @click="approveReservation" class="btn btn-outline-success approve-reservation-button">Approve</button>
                     </span>
-                    <span v-if="props.status==='Approved'" class="item-data-value">
+                    <span v-if="reservationStore.status==='Approved'" class="item-data-value">
                         <button class="btn btn-primary approve-reservation-button" disabled>Approved</button>
                     </span>
                 </div>

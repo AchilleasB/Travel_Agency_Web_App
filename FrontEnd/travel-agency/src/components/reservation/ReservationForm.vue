@@ -16,6 +16,7 @@ reservationStore.trip_id = props.tripId;
 reservationStore.total_price = computed(() => {
     return reservationStore.num_of_travellers * props.price;
 });
+
 const successMessage = ref('');
 
 const confirmReservation = async () => {

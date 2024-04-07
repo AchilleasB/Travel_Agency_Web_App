@@ -27,12 +27,10 @@ onMounted(() => {
 .app-container {
   display: flex;
   flex-wrap: wrap;
-  min-height: 100vh;
 }
 
 .router-view-container {
   flex-grow: 1;
-  max-width: 1200px;
   margin: 0 auto;
   align-items: center;
 }

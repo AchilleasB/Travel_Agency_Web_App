@@ -40,3 +40,9 @@ onMounted(() => {
     </div>
 </template>
 
+<style scoped>
+ .container {
+     margin: 0 auto;
+     }
+</style>
+

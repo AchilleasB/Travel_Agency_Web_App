@@ -23,6 +23,7 @@ console.log(props);
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease-in-out;
+    cursor: pointer;
 }
 
 .destination-card:hover {
@@ -40,7 +41,6 @@ console.log(props);
     object-fit: cover;
     filter: brightness(80%);
     transition: transform .4s ease-in-out;
-    cursor: pointer;
     border-bottom: 1px solid #ddd;
 }
 
@@ -55,7 +55,10 @@ console.log(props);
 }
 
 .card-text {
-    color: #666;
+    color: #555555;
+    letter-spacing: .1em;
+    line-height: 1.6;
+    font-weight: 500;
 }
 
 a {

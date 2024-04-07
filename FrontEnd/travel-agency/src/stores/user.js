@@ -34,6 +34,9 @@ export const useUserStore = defineStore('userStore', {
                 localStorage.setItem('jwt', this.jwt);
                 localStorage.setItem('user_id', this.id);
                 localStorage.setItem('username', this.username);
+                localStorage.setItem('email', this.email);
+                localStorage.setItem('role', this.role);
+
                 axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.jwt;
                 
                 console.log(this.jwt, this.id);
@@ -49,15 +52,19 @@ export const useUserStore = defineStore('userStore', {
             const jwt = localStorage.getItem('jwt');
             const id = localStorage.getItem('user_id');
             const username = localStorage.getItem('username');
+            const email = localStorage.getItem('email');
+            const role = localStorage.getItem('role');
+
             console.log(jwt, id);
 
             if (jwt && id) {
                 axios.defaults.headers.common['Authorization'] = 'Bearer ' + jwt;
                 this.jwt = jwt;
                 this.id = id;
-                // this.username = username;
-
-                this.fetchUserData(id);
+                this.username = username;
+                this.email = email;
+                this.role = role;
+                
             }
         },
 
@@ -97,24 +104,6 @@ export const useUserStore = defineStore('userStore', {
                 console.log(response);
 
                 return response;
-            } catch (error) {
-                console.log(error);
-                return error;
-            }
-        },
-
-        async fetchUserData(id) {
-            try {
-                const response = await axios.get(`/users/`+ id);
-                // console.log(response);
-
-                if (response.data) {
-                    this.username = response.data.username;
-                    this.email = response.data.email;
-                    this.id = response.data.id;
-                    this.role = response.data.role;
-                    return response;
-                }
             } catch (error) {
                 console.log(error);
                 return error;

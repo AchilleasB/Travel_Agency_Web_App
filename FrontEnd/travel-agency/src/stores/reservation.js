@@ -3,11 +3,13 @@ import axios from '../axios-auth';
 
 export const useReservationStore = defineStore('reservationStore', {
     state: () => ({
+        id: 0,
         user_id: 0,
         trip_id: 0,
         num_of_travellers: 0,
         total_price: 0,
-        status: ''
+        status: '',
+        reservations:[]
     }),
 
     actions: {
@@ -21,6 +23,7 @@ export const useReservationStore = defineStore('reservationStore', {
                     total_price: this.total_price,
                     status: ''
                 });
+
                 console.log(response);
                 return response;
             } catch (error) {
@@ -32,6 +35,8 @@ export const useReservationStore = defineStore('reservationStore', {
         async getReservations() {
             try {
                 const response = await axios.get('reservations');
+                this.reservations = response.data;
+                console.log(this.reservations);
                 return response;
             } catch (error) {
                 console.log(error);
@@ -39,20 +44,15 @@ export const useReservationStore = defineStore('reservationStore', {
             }
         },
         
-        async fetchReservationData(user_id) {
+        async getUserReservations(user_id) {
             try {
                 const response = await axios.get(`reservations/`+ user_id);
                 console.log(response);
 
-                if (response.data) {
-                    this.user_id = response.data.user_id;
-                    this.trip_id = response.data.trip_id;
-                    this.num_of_travellers = response.data.num_of_travellers;
-                    this.total_price = response.data.total_price;
-                    this.status = response.data.status;
+                this.reservations = response.data;
+                console.log(this.reservations);
+                return response;
 
-                    return response;
-                }
             } catch (error) {
                 console.log(error);
                 return error;

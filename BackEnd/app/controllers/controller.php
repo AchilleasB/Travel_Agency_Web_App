@@ -47,7 +47,7 @@ class Controller
 
         $issuedAt = time(); // issued at
         $notbefore = $issuedAt; //not valid before 
-        $expire = $issuedAt + 600; // expiration time is set at +600 seconds (10 minutes)
+        $expire = $issuedAt + 1800; // expiration time is set at +1800 seconds (30 minutes)
 
         // JWT expiration times should be kept short (10-30 minutes)
         // A refresh token system should be implemented if we want clients to stay logged in for longer periods
