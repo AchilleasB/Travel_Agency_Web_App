@@ -3,12 +3,18 @@ import { RouterView } from 'vue-router'
 import Navigation from './components/Navigation.vue'
 import Footer from './components/Footer.vue'
 import { useUserStore } from './stores/user'
+import { useRouter } from 'vue-router'
 import { onMounted } from 'vue';
 
 const userStore = useUserStore()
+const router = useRouter()
 
 onMounted(() => {
-  userStore.autoLogin()
+  userStore.autoLogin();
+  
+  if (!userStore.isAuthenticated) {
+    router.push({ name: 'account' })
+  }
 })
 
 </script>
@@ -26,12 +32,14 @@ onMounted(() => {
 <style scoped>
 .app-container {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
 }
 
 .router-view-container {
-  flex-grow: 1;
-  margin: 0 auto;
   align-items: center;
+}
+
+.Footer {
+  margin-top: auto;
 }
 </style>

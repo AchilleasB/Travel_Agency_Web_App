@@ -72,7 +72,7 @@ const logout = () => {
   width: 100vw;
   height: 12vh;
   background: linear-gradient(to right, #ffd633, #efc365, #f7c273);
-  font-size: 1rem;
+  font-size: 1.1em;
   display: flex;
   justify-content: space-between;
   padding: 0 20px;

@@ -9,10 +9,48 @@ export const useReservationStore = defineStore('reservationStore', {
         num_of_travellers: 0,
         total_price: 0,
         status: '',
-        reservations:[]
+        reservations:[],
     }),
 
     actions: {
+        
+        async getReservations() {
+            try {
+                const response = await axios.get('reservations');
+                this.reservations = response.data;
+                // console.log(this.reservations);
+                return response.data;
+            } catch (error) {
+                console.log(error);
+                return error;
+            }
+        },
+        
+        async getUserReservations(user_id) {
+            try {
+                const response = await axios.get(`reservations/`+ user_id);
+                console.log(response);
+
+                this.reservations = response.data;
+                // console.log(this.reservations);
+                return response.data;
+
+            } catch (error) {
+                console.log(error);
+                return error;
+            }
+        },
+
+        async getCustomerData(id) {
+            try {
+                const response = await axios.get(`users/`+ id);
+                // console.log(response);
+                return response.data;
+            } catch (error) {
+                console.log(error);
+                return error;
+            }
+        },
 
         async reserve() {
             try {
@@ -26,33 +64,6 @@ export const useReservationStore = defineStore('reservationStore', {
 
                 console.log(response);
                 return response;
-            } catch (error) {
-                console.log(error);
-                return error;
-            }
-        },
-        
-        async getReservations() {
-            try {
-                const response = await axios.get('reservations');
-                this.reservations = response.data;
-                console.log(this.reservations);
-                return response;
-            } catch (error) {
-                console.log(error);
-                return error;
-            }
-        },
-        
-        async getUserReservations(user_id) {
-            try {
-                const response = await axios.get(`reservations/`+ user_id);
-                console.log(response);
-
-                this.reservations = response.data;
-                console.log(this.reservations);
-                return response;
-
             } catch (error) {
                 console.log(error);
                 return error;

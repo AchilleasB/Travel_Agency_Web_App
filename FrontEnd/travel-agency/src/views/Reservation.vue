@@ -1,34 +1,60 @@
 <script setup>
 import ReservationRow from '../components/reservation/ReservationRow.vue';
 import { useReservationStore } from '../stores/reservation';
-import { onMounted} from 'vue';
+import { onMounted, ref } from 'vue';
 import { useUserStore } from '../stores/user';
+import { useTripStore } from '../stores/trip';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
 const userStore = useUserStore();
 const reservationStore = useReservationStore();
+const tripStore = useTripStore();
+
+const allReservationInformation = ref([]);
+// console.log(allReservationInformation.value);
 
 const user_id = userStore.id;
 
 const getUserReservations = async () => {
-    await reservationStore.getUserReservations(user_id);
+    const reservations = await reservationStore.getUserReservations(user_id);
+    allReservationInformation.value = await addExtraReservationInfo(reservations)
 };
 
 const getAllReservations = async () => {
-    await reservationStore.getReservations();
+    const reservations = await reservationStore.getReservations();
+    allReservationInformation.value = await addExtraReservationInfo(reservations)
+};
+
+const addExtraReservationInfo = async (reservations) => {
+    return Promise.all(reservations.map(async (reservation) => {
+        const customerData = await reservationStore.getCustomerData(reservation.user_id);
+        const customerName = customerData.username;
+        const tripData = await tripStore.getTripData(reservation.trip_id);
+        const tripName = tripData.name;
+        const tripImage = tripData.image_path;
+        const tripDate = new Date(tripData.departure_date.date).toISOString().substring(0, 10);
+        return { ...reservation, customerName, tripName, tripImage, tripDate };
+    }));
 };
 
 onMounted(async () => {
     if (!userStore.isAuthenticated) {
         router.push({ name: 'account' });
-    } 
-    
-    if (userStore.isAdmin) {
-        await getAllReservations();
-    } else {
-        await getUserReservations();
     }
+
+    try {
+        if (userStore.isAdmin) {
+            await getAllReservations();
+        } else {
+            await getUserReservations();
+        }
+
+        // console.log(allReservationInformation.value);
+    } catch (error) {
+        console.error(error);
+    }
+
 
 });
 
@@ -36,12 +62,14 @@ onMounted(async () => {
 
 <template>
     <div class="reservations-container">
-        <h3 class="d-flex justify-content-center">Your reservations</h3>
-
-        <div class=" row reservation-row-container ">
+        <h3 class="title d-flex justify-content-center">Reservations</h3>
+        <div class=" row reservation-labels-container">
             <div class="row">
                 <div class="col-sm-6 col-md-8">
                     <div class="row d-flex align-items-center border-botttom">
+                        <div class="col">
+                            <div class="item-data-label border-bottom">Id</div>
+                        </div>
                         <div class="col">
                             <div class="item-data-label border-bottom">Name</div>
                         </div>
@@ -54,44 +82,46 @@ onMounted(async () => {
                         <div class="col">
                             <div class="item-data-label border-bottom">Date</div>
                         </div>
-                        <!-- <div class="col">
-                            <div class="item-data-label border-bottom">Status</div>
-                        </div> -->
                     </div>
                 </div>
             </div>
-            <ReservationRow v-for="reservation in reservationStore.reservations" :key="reservation.id"
-                                                :reservationId = reservation.id
-                                                :userId = reservation.user_id
-                                                :tripId = reservation.trip_id
-                                                :numberOfTravellers = reservation.num_of_travellers
-                                                :totalPrice = reservation.total_price
-                                                :status = reservation.status />
+        </div>
+        <div class="reservations-items-container border-bottom">
+                <ReservationRow v-for="reservation in allReservationInformation" 
+                                                :key="reservation.id"
+                                                :reservationId=reservation.id 
+                                                :userId=reservation.user_id 
+                                                :customerName=reservation.customerName
+                                                :tripId=reservation.trip_id 
+                                                :tripName=reservation.tripName
+                                                :tripImage=reservation.tripImage
+                                                :tripDate=reservation.tripDate
+                                                :numberOfTravellers=reservation.num_of_travellers
+                                                :totalPrice=reservation.total_price 
+                                                :status=reservation.status />
         </div>
     </div>
 </template>
 
 <style scoped>
 .reservations-container {
-    border: red solid 1px;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
-.reservation-row-container {
-    margin-top: 1em;
-    border: blue solid 1px;
-    width: 100%;
-    height: auto;
-    border-bottom: 1px solid black;
+.reservation-labels-container {
+    background-color: #ffffff;
+}
 
+.title {
+    margin-bottom: 2em;
 }
 
 .item-data-label {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
-    margin: 3em;
 }
 </style>

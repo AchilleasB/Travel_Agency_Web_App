@@ -64,8 +64,12 @@ export const useUserStore = defineStore('userStore', {
                 this.username = username;
                 this.email = email;
                 this.role = role;
-                
+
+                return true;
             }
+            
+            return false;
+            
         },
 
         async signup(email, password, username) {

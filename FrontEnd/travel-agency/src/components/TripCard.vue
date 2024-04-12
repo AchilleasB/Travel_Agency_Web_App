@@ -93,6 +93,17 @@ const cancelReservationForm = () => {
     box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.2);
     background-color: rgba(241, 239, 235, 0.83);
     font-size: 18px;
+    transition: transform 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.trip-card:hover {
+    transform: scale(1.05);
+    filter: brightness(100%);
+}
+
+.trip-card:hover .image{
+    filter: brightness(100%);
 }
 
 .image-container {
@@ -103,6 +114,8 @@ const cancelReservationForm = () => {
     width: 100%;
     height: 300px;
     object-fit: cover;
+    filter: brightness(80%);
+    transition: transform .4s ease-in-out;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
 }

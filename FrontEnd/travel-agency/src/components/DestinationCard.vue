@@ -41,7 +41,6 @@ console.log(props);
     object-fit: cover;
     filter: brightness(80%);
     transition: transform .4s ease-in-out;
-    border-bottom: 1px solid #ddd;
 }
 
 .card-body {

@@ -21,19 +21,6 @@ export const useTripStore = defineStore('tripStore', {
 
     actions: {
 
-        async create() {
-            try {
-                const response = await axios.post('trips', {
-                    
-                });
-                console.log(response);
-                return response;
-            } catch (error) {
-                console.log(error);
-                return error;
-            }
-        },
-        
         async getTrips() {
             try {
                 const response = await axios.get('trips');
@@ -47,7 +34,7 @@ export const useTripStore = defineStore('tripStore', {
         async getTripData(trip_id) {
             try {
                 const response = await axios.get(`trips/`+ trip_id);
-                console.log(response);
+                // console.log(response);
 
                 if (response.data) {
                     this.id = response.data.id;
@@ -64,20 +51,10 @@ export const useTripStore = defineStore('tripStore', {
                     this.category = response.data.category;
                     this.destination_id = response.data.destination_id;
                     this.destination = response.data.destination;
-
-                    return response;
                 }
-            } catch (error) {
-                console.log(error);
-                return error;
-            }
-        },
 
-        async deleteTrip(trip_id) {
-            try {
-                const response = await axios.delete(`trips/`+ trip_id);
-                console.log(response);
-                return response;
+                return response.data;
+
             } catch (error) {
                 console.log(error);
                 return error;
