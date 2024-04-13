@@ -16,7 +16,8 @@ export const useTripStore = defineStore('tripStore', {
         category_id: '',
         category: {},
         destination_id: '',
-        destination: {}
+        destination: {},
+        topTrips: [],
     }),
 
     actions: {
@@ -30,10 +31,10 @@ export const useTripStore = defineStore('tripStore', {
                 return error;
             }
         },
-        
+
         async getTripData(trip_id) {
             try {
-                const response = await axios.get(`trips/`+ trip_id);
+                const response = await axios.get(`trips/` + trip_id);
                 // console.log(response);
 
                 if (response.data) {
@@ -60,6 +61,28 @@ export const useTripStore = defineStore('tripStore', {
                 return error;
             }
         },
+
+        async getTopTrips(mostSelectedTrips) {
+            try {
+                for (const element of mostSelectedTrips) {
+                    const trips = await this.getTripData(element.trip_id);
+                    this.topTrips.push(trips);
+                }
+            } catch (error) {
+                console.log(error);
+                return error;
+            }
+        },
+
+        // async getTripImage(trip_id) {
+        //     try {
+        //         const response = await axios.get(`trips/` + trip_id);
+        //         return response.data.image_path;
+        //     } catch (error) {
+        //         console.log(error);
+        //         return error;
+        //     }
+        // },
 
     }
 });

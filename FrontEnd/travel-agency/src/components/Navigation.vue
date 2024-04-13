@@ -19,7 +19,7 @@ const logout = () => {
   <header class="text-center py-3 mb-4 ">
     <div class="mb-3">
       <router-link to="/" href="/" class="d-inline-flex link-body-emphasis text-decoration-none">
-        <img alt="Vue logo" src="@/assets/MakLogo.svg" class="w-100" />
+        <img alt="Vue logo" src="@/assets/mak-logo.svg" class="w-100" />
       </router-link>
     </div>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">

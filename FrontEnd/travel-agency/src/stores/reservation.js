@@ -90,6 +90,17 @@ export const useReservationStore = defineStore('reservationStore', {
                 console.log(error);
                 return error;
             }
+        },
+
+        async getMostReservedTrips() {
+            try {
+                const response = await axios.get('reservations/mostReservedTrips');
+                console.log(response);
+                return response.data;
+            } catch (error) {
+                console.log(error);
+                return error;
+            }
         }
     }
 });
