@@ -50,8 +50,7 @@ onMounted(async () => {
       </section>
       <section class="destinations">
         <div class="destinations_text">
-          <h2>All Continents</h2>
-          <p><em>Travel to any continent</em></p>
+          <h2>Travel to all continents</h2>
         </div>
         <div class="destinations-carousel">
           <TripCarousel :items="allDestinations" />
@@ -71,7 +70,7 @@ onMounted(async () => {
 .destinations {
   margin-bottom: 4em;
   padding: 3em;
-  border-radius: .3em;
+  border-radius: .6em;
 }
 
 .trips {
@@ -90,6 +89,11 @@ onMounted(async () => {
   width:fit-content;
   margin: .5em auto;
   padding: .5em 2em;
+  border-radius: .6em;
+}
+
+.trips_text p {
+  font-size: 1.2em;
 }
 
 .trips-carousel {

@@ -49,13 +49,10 @@ onMounted(async () => {
         } else {
             await getUserReservations();
         }
-
         // console.log(allReservationInformation.value);
     } catch (error) {
         console.error(error);
     }
-
-
 });
 
 </script>
@@ -87,18 +84,11 @@ onMounted(async () => {
             </div>
         </div>
         <div class="reservations-items-container border-bottom">
-                <ReservationRow v-for="reservation in allReservationInformation" 
-                                                :key="reservation.id"
-                                                :reservationId=reservation.id 
-                                                :userId=reservation.user_id 
-                                                :customerName=reservation.customerName
-                                                :tripId=reservation.trip_id 
-                                                :tripName=reservation.tripName
-                                                :tripImage=reservation.tripImage
-                                                :tripDate=reservation.tripDate
-                                                :numberOfTravellers=reservation.num_of_travellers
-                                                :totalPrice=reservation.total_price 
-                                                :status=reservation.status />
+            <ReservationRow v-for="reservation in allReservationInformation" :key="reservation.id"
+                :reservationId=reservation.id :userId=reservation.user_id :customerName=reservation.customerName
+                :tripId=reservation.trip_id :tripName=reservation.tripName :tripImage=reservation.tripImage
+                :tripDate=reservation.tripDate :numberOfTravellers=reservation.num_of_travellers
+                :totalPrice=reservation.total_price :status=reservation.status />
         </div>
     </div>
 </template>
@@ -109,6 +99,7 @@ onMounted(async () => {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    margin: 2em;
 }
 
 .reservation-labels-container {

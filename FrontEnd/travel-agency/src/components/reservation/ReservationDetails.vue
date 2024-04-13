@@ -1,6 +1,5 @@
 <script setup>
 
-
 const props = defineProps(['tripId', 'tripName', 'tripDepartureDate', 'tripDuration',
                             'tripHotelName', 'tripHotelStars', 'tripMealType']);
 console.log(props.tripId);

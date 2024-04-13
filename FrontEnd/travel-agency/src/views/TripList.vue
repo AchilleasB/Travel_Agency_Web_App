@@ -2,14 +2,15 @@
 import TripCard from '../components/TripCard.vue';
 import { ref, onMounted, watchEffect } from 'vue';
 import { useRouter } from 'vue-router';
-import axios from '../axios-auth';
+import { useTripStore } from '../stores/trip';
 
 const router = useRouter();
+const tripStore = useTripStore();
 const trips = ref([]);
 
+
 const getTrips = async () => {
-    const response = await axios.get('trips');
-    trips.value = response.data;
+    trips.value = await tripStore.getTrips();
 };
 
 

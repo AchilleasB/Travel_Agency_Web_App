@@ -11,7 +11,8 @@ const tripStore = useTripStore();
 
 const props = defineProps(['reservationId', 'userId', 'customerName',
     'tripId', 'tripName', 'tripImage', 'tripDate',
-    'totalPrice', 'numberOfTravellers', 'status']);
+    'totalPrice', 'numberOfTravellers', 'status'
+]);
 
 // console.log(props);
 
@@ -26,7 +27,7 @@ const isRowVisible = ref(false);
 
 const showTripDetails = async () => {
     await getTripData();
-    console.log("Trip in showTripDetails:", trip.value);
+    // console.log("Trip in showTripDetails:", trip.value);
     isRowVisible.value = true;
 }
 
@@ -37,6 +38,7 @@ const hideTripDetails = () => {
 const cancelReservation = async () => {
     if (confirm('Are you sure you want to cancel this reservation?')) {
         await reservationStore.deleteReservation(props.reservationId);
+        window.location.reload();
     }
 };
 
@@ -44,7 +46,8 @@ const approveReservation = async () => {
     if (reservationStore.status == 'Approved') {
         alert('Reservation already approved');
     } else if (confirm('Are you sure you want to approve this reservation?')) {
-        reservationStore.approveReservation(props.reservationId);
+        await reservationStore.approveReservation(props.reservationId);
+        window.location.reload();
     }
 };
 
@@ -53,7 +56,7 @@ const approveReservation = async () => {
 <template>
     <div class="row">
         <div class="col-sm-6 col-md-8">
-            <div class="row d-flex align-items-center border-botttom">
+            <div class="row d-flex align-items-center border-botttom border-top">
                 <div class="col">
                     <span class="item-data-value">{{ props.reservationId }}</span>
                 </div>
@@ -72,8 +75,8 @@ const approveReservation = async () => {
                 </div>
             </div>
         </div>
-        <div class="col-sm-6 col-md-4 d-flex mt-3 mb-3">
-            <div class="row">
+        <div class="col-sm-6 col-md-4 d-flex ">
+            <div class="row border-botttom border-top pt-3 pb-3">
                 <div class="col">
                     <span class="item-data-value">
                         <button v-if="!isRowVisible" @click="showTripDetails"
@@ -81,13 +84,13 @@ const approveReservation = async () => {
                     </span>
                 </div>
                 <div class="col">
-                    <span class="item-data-value">
+                    <span v-if="props.status !== 'Approved'" class="item-data-value">
                         <button @click="cancelReservation"
                             class="btn btn-outline-danger cancel-reservation-button">Cancel</button>
                     </span>
                 </div>
-                <div v-if="userStore.isAdmin" class="col">
-                    <span v-if="props.status !== 'Approved'" class="item-data-value">
+                <div class="col">
+                    <span v-if="props.status !== 'Approved' && userStore.isAdmin" class="item-data-value">
                         <button @click="approveReservation"
                             class="btn btn-outline-success approve-reservation-button">Approve</button>
                     </span>

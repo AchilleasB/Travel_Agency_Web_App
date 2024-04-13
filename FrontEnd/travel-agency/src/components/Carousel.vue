@@ -19,7 +19,7 @@ const navigateToTrips = (item) => {
     <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
             <div v-for="(item, index) in props.items" :key="index"
-                :class="{ 'carousel-item': true, 'active': index === 0 }" @click="navigateToTrips(item)">
+                :class="{ 'carousel-item': true, 'active': index === 0 }" :data-bs-interval="3000" @click="navigateToTrips(item)">
                 <img :src="item.image_path" class="d-block w-100" alt="...">
                 <div class="carousel-caption d-none d-md-block">
                     <h1>{{ item.name }}</h1>
@@ -34,7 +34,7 @@ const navigateToTrips = (item) => {
     object-fit: cover;
     height: 40vh;
     width: 30vh;
-    border-radius: .5em;
+    border-radius: .6em;
 }
 
 .carousel-inner img:hover {

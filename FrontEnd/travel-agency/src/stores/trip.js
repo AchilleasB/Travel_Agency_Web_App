@@ -25,7 +25,7 @@ export const useTripStore = defineStore('tripStore', {
         async getTrips() {
             try {
                 const response = await axios.get('trips');
-                return response;
+                return response.data;
             } catch (error) {
                 console.log(error);
                 return error;
@@ -73,16 +73,6 @@ export const useTripStore = defineStore('tripStore', {
                 return error;
             }
         },
-
-        // async getTripImage(trip_id) {
-        //     try {
-        //         const response = await axios.get(`trips/` + trip_id);
-        //         return response.data.image_path;
-        //     } catch (error) {
-        //         console.log(error);
-        //         return error;
-        //     }
-        // },
 
     }
 });

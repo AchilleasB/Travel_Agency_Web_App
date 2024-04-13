@@ -79,18 +79,8 @@ const logout = () => {
   color: aliceblue;
 }
 
-@media (max-width: 767px) {
-  /* .navbar {
-    flex-direction: column;
-    height: auto;
-  }
-
-  .navbar-nav {
-    display: block;
-    margin: 0;
-    padding: 0;
-
-  } */
+@media (max-width: 990px) {
+  
 
 }
 </style>
