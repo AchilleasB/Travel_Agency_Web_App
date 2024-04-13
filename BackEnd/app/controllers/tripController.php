@@ -47,16 +47,4 @@ class TripController extends Controller {
         $this->respond($trip);
     }
 
-    public function create()
-    {
-        try {
-            $trip = $this->createObjectFromPostedJson(Trip::class);
-            $trip = $this->tripService->create($trip);
-
-        } catch (Exception $e) {
-            $this->respondWithError(500, $e->getMessage());
-        }
-
-        $this->respond($trip);
-    }
 }

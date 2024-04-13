@@ -21,8 +21,4 @@ class TripService {
         return $trip;
     }
 
-    public function create($trip){
-        $trip = $this->tripRepository->create($trip);
-        return $trip;
-    }
 }

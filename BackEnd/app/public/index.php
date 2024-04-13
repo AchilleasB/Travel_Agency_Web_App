@@ -41,6 +41,7 @@ $router->post('/reservations', 'ReservationController@create');
 $router->get('/reservations/(\d+)', 'ReservationController@getReservationsByUser');
 $router->delete('/reservations/(\d+)', 'ReservationController@delete');
 $router->put('/reservations/(\d+)', 'ReservationController@approve');
+$router->get('/reservations/mostReservedTrips', 'ReservationController@mostReservedTrips');
 // Run it!
 $router->run();
 // var_dump('Line executed: ', $router);

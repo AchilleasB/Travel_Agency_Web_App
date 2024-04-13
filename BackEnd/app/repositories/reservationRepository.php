@@ -107,4 +107,18 @@ class ReservationRepository extends Repository
         }
     }
 
+    function mostReservedTrips()
+    {
+        try {
+            $query = "SELECT trip_id, COUNT(trip_id) as total_reservations FROM reservations GROUP BY trip_id ORDER BY total_reservations DESC";
+            $stmt = $this->connection->prepare($query);
+            $stmt->execute();
+            $stmt->setFetchMode(PDO::FETCH_ASSOC);
+            $reservations = $stmt->fetchAll();
+            return $reservations;
+        } catch (PDOException $e) {
+            echo $e;
+        }
+    }
+
 }

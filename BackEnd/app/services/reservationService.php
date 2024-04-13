@@ -44,4 +44,9 @@ class ReservationService
         $reservation->setStatus(Reservation::STATUS_APPROVED);
         return $this->reservationRepository->update($reservation);
     }
+
+    public function mostReservedTrips()
+    {
+        return $this->reservationRepository->mostReservedTrips();
+    }
 }

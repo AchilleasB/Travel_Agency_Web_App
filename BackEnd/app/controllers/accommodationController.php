@@ -35,42 +35,4 @@ class AccommodationController extends Controller {
         $this->respond($accommodations);
     }
 
-    
-    public function create()
-    {
-        try {
-            $accommodation = $this->createObjectFromPostedJson(Accommodation::class);
-            $accommodation = $this->accommodationService->create($accommodation);
-
-        } catch (Exception $e) {
-            $this->respondWithError(500, $e->getMessage());
-        }
-        
-        $this->respond($accommodation);
-    }
-
-    public function update($id)
-    {
-        try {
-            $accommodation = $this->createObjectFromPostedJson(Accommodation::class);
-            $accommodation = $this->accommodationService->update($accommodation, $id);
-
-        } catch (Exception $e) {
-            $this->respondWithError(500, $e->getMessage());
-        }
-
-        $this->respond($accommodation);
-    }
-
-    public function delete($id)
-    {
-        try {
-            $accommodation = $this->accommodationService->delete($id);
-
-        } catch (Exception $e) {
-            $this->respondWithError(500, $e->getMessage());
-        }
-
-        $this->respond($accommodation);
-    }
 }

@@ -42,6 +42,10 @@ class ReservationController extends Controller
 
     public function create()
     {
+        $token = $this->checkForJwt();
+        if (!$token)
+            return;
+        
         try {
             $reservation = $this->createObjectFromPostedJson(Reservation::class);
             var_dump($reservation);
@@ -62,6 +66,10 @@ class ReservationController extends Controller
     }
 
     public function getReservationsByUser($userId){
+        $token = $this->checkForJwt();
+        if (!$token)
+            return;
+        
         $reservations = $this->reservationService->getReservationsByUser($userId);
         if(!$reservations){
             $this->respondWithError(404, "No reservations found");
@@ -72,6 +80,10 @@ class ReservationController extends Controller
 
     public function delete($id)
     {
+        $token = $this->checkForJwt();
+        if (!$token)
+            return;
+        
         try {
             $reservation = $this->reservationService->getOneReservation($id);
             if (!$reservation) {
@@ -87,6 +99,10 @@ class ReservationController extends Controller
 
     public function approve($id)
     {
+        $token = $this->checkForJwt();
+        if (!$token)
+            return;
+        
         try {
             $reservation = $this->reservationService->getOneReservation($id);
             if (!$reservation) {
@@ -104,6 +120,15 @@ class ReservationController extends Controller
         } catch (Exception $e) {
             $this->respondWithError(500, $e->getMessage());
         }
+    }
+
+    public function mostReservedTrips(){
+        $reservations = $this->reservationService->mostReservedTrips();
+        if(!$reservations){
+            $this->respondWithError(404, "No reservations found");
+            return;
+        }
+        $this->respond($reservations);
     }
 
 }

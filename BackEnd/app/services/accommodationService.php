@@ -14,18 +14,4 @@ class AccommodationService {
         return $this->accommodationRepository->getAllAccommodations($offset, $limit);
         
     }
-    public function create($accommodation){
-        $accommodation = $this->accommodationRepository->create($accommodation);
-        return $accommodation;
-    }
-
-    public function update($accommodation, $id){
-        $accommodation = $this->accommodationRepository->update($accommodation, $id);
-        return $accommodation;
-    }
-
-    public function delete($id){
-        $accommodation = $this->accommodationRepository->delete($id);
-        return $accommodation;
-    }
 }

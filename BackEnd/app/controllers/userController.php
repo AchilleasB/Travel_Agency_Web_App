@@ -65,9 +65,9 @@ class UserController extends Controller
 
     public function getOne($id)
     {
-        // $token = $this->checkForJwt();
-        // if (!$token)
-        //     return;
+        $token = $this->checkForJwt();
+        if (!$token)
+            return;
 
         $user = $this->userService->getOne($id);
         if ($user)
