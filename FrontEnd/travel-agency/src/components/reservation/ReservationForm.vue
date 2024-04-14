@@ -42,14 +42,14 @@ const confirmReservation = async () => {
       <label for="user-name">Your Name:</label>
       <input v-model="userStore.username" type="text" id="user-name" disabled style="text-align: center;">
 
-      <label for="user-name">Destination</label>
-      <input v-model="props.name" type="text" id="user-name" disabled style="text-align: center;">
+      <label for="destination">Destination</label>
+      <input v-model="props.name" type="text" id="destination" disabled style="text-align: center;">
       
-      <label for="user-name">Departure date:</label>
-      <input v-model="props.departureDate" type="text" id="user-name" disabled style="text-align: center;">
+      <label for="departure-date">Departure date:</label>
+      <input v-model="props.departureDate" type="text" id="departure-date" disabled style="text-align: center;">
 
-      <label for="numb-of-travellers">Number of Travellers:</label>
-      <input v-model="reservationStore.num_of_travellers" type="number" id="num-of-travellers" min="1" required style="text-align: center;">
+      <label for="travellers-number">Number of Travellers:</label>
+      <input v-model="reservationStore.num_of_travellers" type="number" id="travellers-number" min="1" required style="text-align: center;">
 
       <label for="total-price">Total Price:</label>
       <p>{{ reservationStore.total_price }} €</p>
