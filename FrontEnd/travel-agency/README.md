@@ -1,12 +1,17 @@
 # Travel Agency App
 
 Login as Administrator
-    - email: achil@email.com, password: achil1234
+    email: achil@email.com
+    password: achil1234
 
 or
-Login as Administrator
-    - email: odin@email.com, password: odin1234
-    - email: thor@email.com, password: thor1234
+
+Login as Customer
+    email: odin@email.com
+    password: odin1234 
+    or
+    email: thor@email.com
+    password: thor1234
 
 WEB DEVELOPMENT 2 PROJECT
 Welcome to the Travel Agency App, a platform for exploring and reserving awesome trips around the globe.
