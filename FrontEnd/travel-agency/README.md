@@ -1,4 +1,4 @@
-# travel-agency
+# Travel Agency App
 
 Login as Administrator
     - email: achil@email.com, password: achil1234
