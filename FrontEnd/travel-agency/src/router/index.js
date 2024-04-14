@@ -19,7 +19,7 @@ const routes = [
   { path: '/account', name: 'account', component: Account},
   { path: '/reservation', name: 'reservation', component: Reservation},
   { path: '/profile', name: 'profile', component: Profile},
-  { path: '/:pathMatch(.*)*', name: 'not-found', redirect: { name: 'home' } }
+  { path: '/:pathMatch(.*)*', name: 'not-found', redirect: { name: 'account' } }
 ]
 
 const router = createRouter({

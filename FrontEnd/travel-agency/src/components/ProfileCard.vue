@@ -1,20 +1,34 @@
 <script setup>
 import { ref } from 'vue';
 import { useUserStore } from '../stores/user';
+import { useRouter } from 'vue-router';
 
+const router = useRouter();
 const userStore = useUserStore();
 const password = ref('');
 const successMessage = ref('');
+const errorMessage = ref('');
 
 const update = async () => {
-    const res = await userStore.update(userStore.username, userStore.email, password.value);
+    try {
+        const response = await userStore.update(userStore.username, userStore.email, password.value);
 
-    if (res.status === 200) {
-        successMessage.value = 'Your credentials have been updated!';
-        setTimeout(() => {
-            successMessage.value = '';
-        }, 2000);
+        if (response.status === 200) {
+            successMessage.value = 'Your credentials have been updated!';
+            setTimeout(() => {
+                successMessage.value = '';
+            }, 2000);
+        }
+    } catch (error) {
+        if (error.response && error.response.status === 401) {
+            errorMessage.value = 'Your login period has expired!';
+            setTimeout(() => {
+                errorMessage.value = '';
+                router.push({ name: 'account' });
+            }, 2000);
+        }
     }
+
 }
 
 </script>
@@ -39,15 +53,15 @@ const update = async () => {
             </div>
         </form>
         <div class="alert alert-success mt-3">{{ successMessage }}</div>
+        <div class="alert alert-danger mt-3">{{ errorMessage }}</div>
         <p>* You can update your credentials here</p><br />
         <div class="background-image"></div>
     </div>
-        
-        
+
+
 </template>
 
 <style scoped>
-
 .container {
     position: relative;
     justify-content: center;
@@ -63,7 +77,7 @@ p {
     bottom: 0;
     margin: 10px 0 0 10px;
 }
- 
+
 button {
     margin: auto;
     display: flex;
@@ -84,6 +98,7 @@ button {
     border-radius: 10px;
     box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.5);
 }
+
 .form-label {
     font-weight: bold;
 }

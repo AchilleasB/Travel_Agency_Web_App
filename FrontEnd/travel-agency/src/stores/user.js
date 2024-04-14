@@ -7,7 +7,7 @@ export const useUserStore = defineStore('userStore', {
         id: 0,
         username: '',
         email: '',
-        role:'',
+        role: '',
     }),
 
     getters: {
@@ -38,7 +38,7 @@ export const useUserStore = defineStore('userStore', {
                 localStorage.setItem('role', this.role);
 
                 axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.jwt;
-                
+
                 console.log(this.jwt, this.id);
 
                 return response;
@@ -67,9 +67,9 @@ export const useUserStore = defineStore('userStore', {
 
                 return true;
             }
-            
+
             return false;
-            
+
         },
 
         async signup(email, password, username) {
@@ -99,19 +99,14 @@ export const useUserStore = defineStore('userStore', {
         },
 
         async update(username, email, password) {
-            try {
-                const response = await axios.put(`/users/update`, {
-                    username: username,
-                    email: email,
-                    password: password,
-                });
-                console.log(response);
+            const response = await axios.put(`/users/update`, {
+                username: username,
+                email: email,
+                password: password,
+            });
+            console.log(response);
 
-                return response;
-            } catch (error) {
-                console.log(error);
-                return error;
-            }
+            return response;
         },
 
     }

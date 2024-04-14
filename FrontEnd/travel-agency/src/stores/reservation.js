@@ -15,15 +15,9 @@ export const useReservationStore = defineStore('reservationStore', {
     actions: {
 
         async getReservations() {
-            try {
-                const response = await axios.get('reservations');
-                this.reservations = response.data;
-                // console.log(this.reservations);
-                return response.data;
-            } catch (error) {
-                console.log(error);
-                return error;
-            }
+            const response = await axios.get('reservations');
+            this.reservations = response.data;
+            return response.data;
         },
 
         async getUserReservations(user_id) {
@@ -89,14 +83,9 @@ export const useReservationStore = defineStore('reservationStore', {
         },
 
         async getMostReservedTrips() {
-            try {
-                const response = await axios.get('reservations/mostReservedTrips');
-                console.log(response);
-                return response.data;
-            } catch (error) {
-                console.log(error);
-                return error;
-            }
+            const response = await axios.get('reservations/mostReservedTrips');
+            console.log(response);
+            return response.data;
         }
     }
 });

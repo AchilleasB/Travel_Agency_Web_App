@@ -12,18 +12,31 @@ const reservationStore = useReservationStore();
 const tripStore = useTripStore();
 
 const allReservationInformation = ref([]);
-// console.log(allReservationInformation.value);
-
 const user_id = userStore.id;
 
 const getUserReservations = async () => {
-    const reservations = await reservationStore.getUserReservations(user_id);
-    allReservationInformation.value = await addExtraReservationInfo(reservations)
+    try {
+        const reservations = await reservationStore.getUserReservations(user_id);
+        allReservationInformation.value = await addExtraReservationInfo(reservations);
+    } catch (error) {
+        if (error.response && error.response.status === 401) {
+            userStore.logout();
+            router.push({ name: 'account' });
+        }
+    }
 };
 
 const getAllReservations = async () => {
-    const reservations = await reservationStore.getReservations();
-    allReservationInformation.value = await addExtraReservationInfo(reservations)
+    try {
+        const reservations = await reservationStore.getReservations();
+        allReservationInformation.value = await addExtraReservationInfo(reservations);
+    } catch (error) {
+        if (error.response && error.response.status === 401) {
+            userStore.logout();
+            router.push({ name: 'account' });
+        }
+    }
+
 };
 
 const addExtraReservationInfo = async (reservations) => {
@@ -49,7 +62,6 @@ onMounted(async () => {
         } else {
             await getUserReservations();
         }
-        // console.log(allReservationInformation.value);
     } catch (error) {
         console.error(error);
     }
