@@ -4,13 +4,11 @@
     - email: achil@email.com
     - password: achil1234
 
-or
-
 - Login as Customer
     - email: odin@email.com
     - password: odin1234
       
-    or
+      or
 
     - email: thor@email.com
     - password: thor1234
