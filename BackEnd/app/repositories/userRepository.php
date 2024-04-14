@@ -11,7 +11,7 @@ class UserRepository extends Repository
     public function create($user)
     {
         try {
-            $stmt = $this->connection->prepare("INSERT into users (username, email, password, role) VALUES (:username, :email, :password. :role)");
+            $stmt = $this->connection->prepare("INSERT into users (username, email, password, role) VALUES (:username, :email, :password, :role)");
             $stmt->bindParam(':username', $user->username);
             $stmt->bindParam(':email', $user->email);
             $stmt->bindParam(':password', $user->password);

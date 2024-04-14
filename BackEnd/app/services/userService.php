@@ -24,7 +24,7 @@ class UserService
             return false;
 
         $user->password = password_hash($user->password, PASSWORD_DEFAULT);
-
+        $user->setRole('customer');
         $createdUser = $this->userRepository->create($user);
         $createdUser->password = '';
 
