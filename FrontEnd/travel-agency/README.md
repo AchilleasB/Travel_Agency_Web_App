@@ -8,8 +8,10 @@ or
 
 - Login as Customer
     - email: odin@email.com
-    - password: odin1234 
+    - password: odin1234
+      
     or
+
     - email: thor@email.com
     - password: thor1234
 
